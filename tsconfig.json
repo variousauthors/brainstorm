@@ -13,11 +13,14 @@
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@common/*": ["common/*"],
+      "@brainstorm": ["../dist/index.d.ts"]
+    },
   },
   "exclude": [
     "dist",
     "node_modules",
-    "src/**/*.test.tsx",
-    "src/**/*.stories.tsx",
   ],
 }

@@ -1,6 +1,17 @@
 import React, { FC,Fragment } from 'react'
 import styled from 'styled-components';
-import { InputProps } from "./Input.types"
+import { ChangeEventHandler } from "react"
+
+export interface InputProps {
+    id?: string,
+    label?: string,
+    error?:boolean,
+    message?: string,
+    success?:boolean,
+    disabled?: boolean,
+    placeholder?:string,
+    onChange?: ChangeEventHandler<HTMLInputElement>
+}
 
 const StyledInput = styled.input<InputProps>`
     height: 40px;
@@ -30,7 +41,7 @@ const StyledText = styled.p<InputProps>`
    color: ${props => props.disabled ? "#e4e3ea" : (props.error ? "#a9150b": "#080808")};
 `;
 
-const Input: FC<InputProps> = ({id, disabled, label, message, error, success, onChange, placeholder, ...props}) => {
+export const Input: FC<InputProps> = ({id, disabled, label, message, error, success, onChange, placeholder, ...props}) => {
     return (
       <Fragment>
         <StyledLabel><StyledText disabled={disabled} error={error}>{label}</StyledText></StyledLabel>
@@ -39,5 +50,3 @@ const Input: FC<InputProps> = ({id, disabled, label, message, error, success, on
       </Fragment>
     )
 }
-
-export default Input;

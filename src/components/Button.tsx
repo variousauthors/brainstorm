@@ -1,7 +1,15 @@
 import React,{FC} from 'react'
 import styled from 'styled-components';
+import { MouseEventHandler } from "react"
+import { Input } from '@common/components'
 
-import {ButtonProps} from "./Button.types"
+export interface ButtonProps {
+    text?: string,
+    primary?:boolean,
+    disabled?: boolean,
+    size?: "small" | "medium" | "large",
+    onClick?: MouseEventHandler<HTMLButtonElement>
+}
 
 const StyledButton = styled.button<ButtonProps>`
     border: 0;
@@ -25,12 +33,10 @@ const StyledButton = styled.button<ButtonProps>`
     }
 `;
 
-const Button: FC<ButtonProps> = ({size, primary, disabled, text, onClick, ...props}) => {
+export const Button: FC<ButtonProps> = ({size, primary, disabled, text, onClick, ...props}) => {
     return (
         <StyledButton type="button" onClick={onClick} primary={primary} disabled={disabled} size={size} {...props}>
             {text}
         </StyledButton>
     )
 }
-
-export default Button;

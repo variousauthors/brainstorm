@@ -1,8 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import Button  from './Button';
-import {ButtonProps} from "./Button.types"
+import { Button, ButtonProps } from '@brainstorm';
 
 export default {
   title: 'Marbella/Button',
