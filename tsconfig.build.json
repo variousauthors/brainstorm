@@ -1,8 +1,15 @@
 {
   "comment": "The project tsconfig includes tests and stories so that we can benefit from type checking there in our editor, but we do not want to compile them when we build.",
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "emitDeclarationOnly": false,
+    "skipLibCheck": true
+  },
   "exclude": [
     "src/**/*.test.tsx",
     "src/**/*.stories.tsx",
+    "dist",
+    "node_modules",
   ],
 }

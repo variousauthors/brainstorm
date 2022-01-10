@@ -6,7 +6,7 @@
     "jsx": "react",
     "module": "ESNext",  
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": "dist",
     "sourceMap": true,
     "outDir": "dist",
     "moduleResolution": "node",
@@ -19,6 +19,10 @@
       "@brainstorm": ["../dist/index.d.ts"]
     },
   },
+  "include": [
+    "src/**/*.tsx",
+    "src/**/*.ts",
+  ],
   "exclude": [
     "dist",
     "node_modules",
