@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 
-import { Button, ButtonProps } from '@brainstorm';
+import { Button, ButtonProps, Input } from '@brainstorm';
 
 export default {
   title: 'Marbella/Button',
@@ -10,7 +10,12 @@ export default {
   },
 } as Meta<typeof Button>;
 
-const Template: Story<ButtonProps> = (args) => <Button {...args} />;
+const Template: Story<ButtonProps> = (args) => (
+  <>
+    <Input />
+    <Button {...args} />
+  </>
+);
 
 export const Primary = Template.bind({});
 Primary.args = {

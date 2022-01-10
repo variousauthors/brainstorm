@@ -16,4 +16,7 @@ module.exports = {
 
     return config;
   },
+  features: {
+    storyStoreV7: true,
+  },
 }

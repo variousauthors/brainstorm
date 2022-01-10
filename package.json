@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "yarn build & start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "author": "",
@@ -24,6 +24,7 @@
     "@types/styled-components": "^5.1.19",
     "babel-loader": "^8.2.3",
     "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "rollup": "^2.63.0",
     "rollup-plugin-dts": "^4.1.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -33,7 +34,8 @@
   },
   "peerDependency": {},
   "dependencies": {
-    "@rollup/plugin-alias": "^3.1.9"
+    "@rollup/plugin-alias": "^3.1.9",
+    "chokidar": "^3.5.2"
   },
   "moduleNameMapper": {
     "@brainstorm": "<rootDir>/dist"

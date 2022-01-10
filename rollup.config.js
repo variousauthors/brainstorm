@@ -9,8 +9,6 @@ import path from 'path'
 const packageJson = require("./package.json");
 const projectRootDir = path.resolve(__dirname);
 
-console.log(path.resolve(projectRootDir, 'src/common'))
-
 export default [
     {
         input: "src/index.ts",
@@ -19,6 +17,14 @@ export default [
             name: 'brainstorm',
             format: "umd",
             sourcemap: true,
+        },
+        watch: {
+            chokidar: {
+                usePolling: true,
+                paths: "src/**",
+                atomic: true,
+                alwaysStat: true,
+            }
         },
         plugins: [
             alias({

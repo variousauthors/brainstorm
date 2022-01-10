@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import { ChangeEventHandler } from "react"
 
 export interface InputProps {
-    id?: string,
-    label?: string,
-    error?:boolean,
-    message?: string,
-    success?:boolean,
-    disabled?: boolean,
-    placeholder?:string,
-    onChange?: ChangeEventHandler<HTMLInputElement>
+  value?: string
+  id?: string,
+  label?: string,
+  error?: boolean,
+  message?: string,
+  success?: boolean,
+  disabled?: boolean,
+  placeholder?: string,
+  onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
 const StyledInput = styled.input<InputProps>`
@@ -41,11 +42,11 @@ const StyledText = styled.p<InputProps>`
    color: ${props => props.disabled ? "#e4e3ea" : (props.error ? "#a9150b": "#080808")};
 `;
 
-export const Input: FC<InputProps> = ({id, disabled, label, message, error, success, onChange, placeholder, ...props}) => {
+export const Input: FC<InputProps> = ({id, disabled, label, message, error, success, onChange, placeholder, value, ...props}) => {
     return (
       <Fragment>
         <StyledLabel><StyledText disabled={disabled} error={error}>{label}</StyledText></StyledLabel>
-        <StyledInput id={id} type="text" onChange={onChange} disabled={disabled} error={error} success={success} placeholder={placeholder} {...props}></StyledInput>
+        <StyledInput value='hello my friend' id={id} type="text" onChange={onChange} disabled={disabled} error={error} success={success} placeholder={placeholder} {...props}></StyledInput>
         <StyledMessage><StyledText error={error}>{message}</StyledText></StyledMessage>
       </Fragment>
     )
