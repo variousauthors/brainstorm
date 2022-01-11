@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 console.log('wat')
 
@@ -10,11 +11,18 @@ module.exports = {
     filename: "index.js",
     library: 'Brainstorm',
     libraryTarget: 'umd',
+    globalObject: 'this',
+    publicPath: '/',
   },
   mode: process.env.NODE_ENV || "development",
   resolve: {
     extensions: [".ts", ".tsx", ".js"]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      React: 'react'
+    })
+  ],
   module: {
     rules: [
       {

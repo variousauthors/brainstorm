@@ -2,7 +2,8 @@
   "name": "brainstorm",
   "version": "1.0.0",
   "description": "a react component library for Edvisor projects",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "files": ["/dist"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
@@ -28,8 +29,6 @@
     "@types/react": "^17.0.38",
     "@types/styled-components": "^5.1.19",
     "babel-loader": "^8.2.3",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "rollup": "^2.63.0",
     "rollup-plugin-dts": "^4.1.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
@@ -37,13 +36,11 @@
     "styled-components": "^5.3.3",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.4",
-    "webpack-cli": "^4.9.1"
-  },
-  "peerDependency": {
+    "webpack-cli": "^4.9.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
-  "resolutions": {
+  "peerDependency": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
