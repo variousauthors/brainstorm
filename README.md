@@ -18,3 +18,4 @@ yarn link react
 yarn link react-dom
 ```
 
+Otherwise, if you are developing locally, we have installed `yarn-add-no-save` to allow you to install add the peer dependencies. This will eventually be rolled into an install script.

@@ -36,7 +36,7 @@ const StyledButton = styled.button<ButtonProps>`
 export const Button: FC<ButtonProps> = ({size, primary, disabled, text, onClick, ...props}) => {
     return (
         <StyledButton type="button" onClick={onClick} primary={primary} disabled={disabled} size={size} {...props}>
-            {text + "!" + "wt " + "this is trouble for"}
+            {text + "!" + "wt " + "this is trouble for nobody"}
         </StyledButton>
     )
 }
