@@ -1,0 +1,27 @@
+{
+  "name": "brainstorm-storybook",
+  "version": "1.0.0",
+  "description": "a react component library for Edvisor projects",
+  "scripts": {
+    "storybook": "start-storybook -p 6006"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@storybook/addon-actions": "^6.4.10",
+    "@storybook/addon-essentials": "^6.4.10",
+    "@storybook/addon-links": "^6.4.10",
+    "@storybook/builder-webpack5": "^6.4.10",
+    "@storybook/manager-webpack5": "^6.4.10",
+    "@storybook/react": "^6.4.10",
+    "sb": "^6.4.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "resolutions": {
+  },
+  "dependencies": {
+  },
+  "moduleNameMapper": {
+  }
+}

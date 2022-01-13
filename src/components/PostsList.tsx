@@ -1,4 +1,5 @@
 import React,{FC} from 'react'
+import { Button } from './Button'
 
 interface IPost {
   slug: string
@@ -14,6 +15,7 @@ export function PostsList({ posts, onClick }: IPostsListProps) {
   return (
     <div>
       <h1>Posts List Bar</h1>
+      <Button />
       <ul>
         {posts.map(post => (
           <li key={post.slug}>

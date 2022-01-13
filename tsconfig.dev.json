@@ -1,0 +1,17 @@
+{
+  "comment": "in dev we just need to exclude tests etc",
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "emitDeclarationOnly": false,
+    "skipLibCheck": true,
+    "declarationDir": "build/dist",
+  },
+  "exclude": [
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx",
+    "dist",
+    "build",
+    "node_modules",
+  ],
+}
