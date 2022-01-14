@@ -1,5 +1,11 @@
 import React,{FC, useState} from 'react'
 import { MouseEventHandler } from "react"
+import styled from 'styled-components'
+
+const _Button = styled.button`
+    background-color: blue;
+    color: white;
+`
 
 export interface ButtonProps {
     text?: string,
@@ -17,8 +23,8 @@ export function Button ({size, primary, disabled, text, ...props}: any) {
     }
 
     return (
-        <div type="button" onClick={handleClick} primary={primary} disabled={disabled} size={size} {...props}>
-            {"It Works!!!"}
-        </div>
+        <_Button type="button" onClick={handleClick} primary={primary} disabled={disabled} size={size} {...props}>
+            {"It Works maybe?"}
+        </_Button>
     )
 }
