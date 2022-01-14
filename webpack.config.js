@@ -58,8 +58,9 @@ module.exports = (env) => {
           }],
         },
         {
-          test: /\.(css|scss)$/,
-          use: ["style-loader", "css-loader"],
+          test: /\.css$/i,
+          include: path.resolve(__dirname, 'src'),
+          use: ['style-loader', 'css-loader', 'postcss-loader'],
         },
         {
           test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
