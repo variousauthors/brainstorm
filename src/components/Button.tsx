@@ -1,12 +1,21 @@
-import React,{FC, useState} from 'react'
+import React, { useState } from 'react'
 import { MouseEventHandler } from "react"
-import styled from 'styled-components'
+import tw from "tailwind-styled-components"
 
-const _Button = styled.button`
-    background-color: blue;
-    color: white;
-    border: 1px solid black;
-    border-radius: 5px;
+const _Button = tw.button`
+    w-full 
+    sm:w-auto 
+    color-blue 
+    mt-6 
+    bg-gray-200 
+    hover:bg-gray-300 
+    text-sm 
+    py-2 
+    px-6 
+    transition 
+    duration-150 
+    ease-in-out 
+    rounded
 `
 
 export interface ButtonProps {
@@ -25,8 +34,8 @@ export function Button ({size, primary, disabled, text, ...props}: any) {
     }
 
     return (
-        <button className="w-full sm:w-auto color-blue mt-6 bg-gray-200 hover:bg-gray-300 text-sm py-2 px-6 transition duration-150 ease-in-out rounded">
+        <_Button className="" onClick={handleClick}>
             {text ? text : 'Send Message' }
-        </button>
+        </_Button>
     )
 }
