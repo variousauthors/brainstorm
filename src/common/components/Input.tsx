@@ -1,4 +1,3 @@
-import React, { FC,Fragment } from 'react'
 import { ChangeEventHandler } from "react"
 
 export interface InputProps {
@@ -13,7 +12,7 @@ export interface InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
-export const Input: FC<InputProps> = ({id, disabled, label, message, error, success, onChange, placeholder, value, ...props}) => {
+export const Input = ({id, disabled, label, message, error, success, onChange, placeholder, value, ...props}: InputProps) => {
     return (
       <div>Hello</div>
     )

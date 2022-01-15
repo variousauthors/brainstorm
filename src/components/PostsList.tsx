@@ -1,4 +1,3 @@
-import React,{FC} from 'react'
 import { Button } from './Button'
 
 interface IPost {

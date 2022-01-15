@@ -9,6 +9,7 @@
     "declaration": true,
     "declarationDir": "build/dist",
     "sourceMap": true,
+    "allowUmdGlobalAccess": true,
     "moduleResolution": "node",
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,

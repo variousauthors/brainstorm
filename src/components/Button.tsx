@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { MouseEventHandler } from "react"
+import { useState, MouseEventHandler } from 'react'
 import tw from "tailwind-styled-components"
 
 const _Button = tw.button`
