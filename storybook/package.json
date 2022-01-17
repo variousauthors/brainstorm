@@ -14,14 +14,19 @@
     "@storybook/builder-webpack5": "^6.4.10",
     "@storybook/manager-webpack5": "^6.4.10",
     "@storybook/react": "^6.4.10",
-    "sb": "^6.4.10",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "sb": "^6.4.10"
   },
-  "resolutions": {
-  },
+  "resolutions": {},
   "dependencies": {
+    "@apollo/client": "^3.5.7",
+    "@babel/core": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "graphql": "^16.2.0",
+    "jest": "^27.4.7",
+    "typescript": "^4.5.4",
+    "webpack": "^5.66.0"
   },
-  "moduleNameMapper": {
-  }
+  "moduleNameMapper": {}
 }
