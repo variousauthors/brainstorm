@@ -9,7 +9,7 @@
     "declaration": true,
     "declarationDir": "build/dist",
     "sourceMap": true,
-    "allowUmdGlobalAccess": true,
+    "allowUmdGlobalAccess": false,
     "moduleResolution": "node",
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
@@ -21,6 +21,7 @@
     },
     "typeRoots": [
       "@types",
+      "node_modules/@types"
     ],
   },
   "include": [

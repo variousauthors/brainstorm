@@ -1,5 +1,6 @@
 import { useState, useReducer } from 'react'
 import axios from 'axios'
+import React from 'react'
 
 const initialState = {
   error: null,
@@ -26,7 +27,7 @@ function greetingReducer(state: any, action: any) {
   }
 }
 
-export default function Fetch({url}: any) {
+export function Fetch({url}: any) {
   const [{error, greeting}, dispatch] = useReducer(
     greetingReducer,
     initialState,

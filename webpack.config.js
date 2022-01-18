@@ -23,13 +23,11 @@ module.exports = (env) => {
     },
     mode: process.env.NODE_ENV || "development",
     resolve: {
+      alias: {
+        "@Brainstorm": path.resolve(__dirname, 'build/dist/'),
+      },
       extensions: [".ts", ".tsx", ".js"]
     },
-    plugins: [
-      new webpack.ProvidePlugin({
-        React: 'react',
-      }),
-    ],
     externals: {
       'react': {
         commonjs: 'react',
