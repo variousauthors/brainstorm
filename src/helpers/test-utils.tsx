@@ -3,17 +3,13 @@ import React, { PropsWithChildren } from 'react'
 import fetch from 'cross-fetch';
 import { render } from '@testing-library/react'
 import { setupServer } from 'msw/node'
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client'
 import { graphql } from 'msw';
-
-const client = new ApolloClient({
-  link: new HttpLink({ uri: 'http://localhost:5000/graphql', fetch }),
-  cache: new InMemoryCache()
-});
+import { ApolloProvider } from '../components/ApolloProvider';
+import { _dangerouslyBuildApolloClient } from './buildApolloClient';
 
 const AllTheProviders = ({ children }: PropsWithChildren<{}>) => {
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider fetch={fetch}>
       {children}
     </ApolloProvider>
   )
@@ -31,6 +27,9 @@ export const server = setupServer(
     )
   }),
 )
+
+// we need the client in order to reset the store cache after each test
+const client = _dangerouslyBuildApolloClient({ fetch })
 
 beforeAll(() => {
   server.listen()

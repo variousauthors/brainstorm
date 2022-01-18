@@ -1,9 +1,15 @@
 import React from 'react'
 import { ApolloProvider as Base } from '@apollo/client'
-import { client } from '../helpers'
+import { _dangerouslyBuildApolloClient } from '../helpers'
 import { PropsWithChildren } from 'react'
 
-export function ApolloProvider ({ children }: PropsWithChildren<{}>) {
+interface IApolloProviderProps extends PropsWithChildren<{}> {
+  fetch?: (input: RequestInfo, init?: RequestInit | undefined) => Promise<Response>
+}
+
+export function ApolloProvider ({ children, fetch }: IApolloProviderProps) {
+  const client = _dangerouslyBuildApolloClient({ fetch })
+
   return (
     <Base client={client}>
       {children}
