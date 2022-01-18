@@ -1,3 +1,4 @@
+import React from 'react'
 import { ApolloProvider as Base } from '@apollo/client'
 import { client } from '../helpers'
 import { PropsWithChildren } from 'react'

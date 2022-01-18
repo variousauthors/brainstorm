@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 export function StudentInfoCard () {
+  const [state, setState] = useState(0);
 
   return (
     <div className="w-full rounded shadow bg-white md:px-6 px-2 py-8 flex flex-col items-center md:max-w-sm md:mr-5 mb-6">
@@ -9,6 +10,7 @@ export function StudentInfoCard () {
       </div>
       <h5 className="mt-4 mb-2 text-gray-800">Timothy Jon Oliphant</h5>
       <p className="text-xs text-gray-600">Marketing Manager</p>
+      <div className="text-xs text-gray-600" onClick={() => setState((prev) => prev + 1)}>Age: {state}</div>
       <div className="flex items-start my-8">
         <div className="">
           <h2 className="text-gray-600 text-xl leading-6 mb-2 text-center">
