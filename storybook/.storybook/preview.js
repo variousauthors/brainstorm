@@ -1,5 +1,5 @@
 import React from 'react';
-import { Brainstorm } from '@brainstorm'
+import { Brainstorm, BrainstormBridge } from '@brainstorm'
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -13,8 +13,11 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <Brainstorm>
-      <Story />
-    </Brainstorm>
+    <>
+      <BrainstormBridge t={(str) => `|${str}|`}/>
+      <Brainstorm>
+        <Story />
+      </Brainstorm>
+    </>
   ),
 ];

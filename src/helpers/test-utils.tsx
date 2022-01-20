@@ -26,6 +26,17 @@ export const server = setupServer(
       }),
     )
   }),
+
+  graphql.query('getCountryList', (req, res, ctx) => {
+    return res(
+      ctx.data({
+        getCountryList: [{
+          countryId: 1,
+          code: 'ca',
+        }],
+      }),
+    )
+  }),
 )
 
 // we need the client in order to reset the store cache after each test

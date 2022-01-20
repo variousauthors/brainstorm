@@ -10,7 +10,7 @@ export default {
 
 function Template () {
   return (
-    <Countries />
+    <Countries source={1} />
   )
 }
 
