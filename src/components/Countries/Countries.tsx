@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client"
 import { ESource, isDefined } from "../../helpers";
-import { useAppContext } from "../Brainstorm";
+import { Text } from '../Typography'
 
 export interface ICountriesProps {
   source: ESource
@@ -26,7 +26,6 @@ const agencyApi = gql`
 `
 
 export function Countries ({ source }: ICountriesProps): JSX.Element {
-  const bob = useAppContext()
   const QUERY = source === ESource.AGENCY_API ? agencyApi : apiServerV2
 
   const { loading, error, data } = useQuery(QUERY, {
@@ -42,7 +41,7 @@ export function Countries ({ source }: ICountriesProps): JSX.Element {
 
   return countries.map(({ countryId, code }: any) => (
     <div key={countryId}>
-      <h1>{bob.t('hello there')}</h1>
+      <h1><Text>hello there</Text></h1>
       <p>
         {countryId}: {code}
       </p>

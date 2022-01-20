@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useAppContext } from "../Brainstorm";
+import { Text } from '../Typography'
 
 export function StudentInfoCard () {
   const [state, setState] = useState(0);
-  const { t } = useAppContext()
 
   return (
     <div className="w-full rounded shadow bg-white md:px-6 px-2 py-8 flex flex-col items-center md:max-w-sm md:mr-5 mb-6">
@@ -11,8 +10,8 @@ export function StudentInfoCard () {
         <img className="w-full h-full object-cover object-center" src="./assets/images/enrolled-student-1.png" alt="student" />
       </div>
       <h5 className="mt-4 mb-2 text-gray-800">Timothy Jon Oliphant</h5>
-      <p className="text-xs text-gray-600">{t('Marketing Manager')}</p>
-      <p className="text-xs text-gray-600">{t('agents:DASHBOARD.TITLE.WELCOME')}</p>
+      <Text className="text-xs text-gray-600">Marketing Manager</Text>
+      <Text className="text-xs text-gray-600">agents:DASHBOARD.TITLE.WELCOME</Text>
       <div className="text-xs text-gray-600" onClick={() => setState((prev) => prev + 1)}>Age: {state}</div>
       <div className="flex items-start my-8">
         <div className="">
