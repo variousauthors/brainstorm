@@ -1,9 +1,7 @@
-import { useAppContext } from '../Brainstorm';
-import React, { ReactElement, ReactText } from 'react'
-import { PropsWithChildren } from "react";
+import React, { ReactElement, ReactText, PropsWithChildren } from 'react'
 import tw from 'tailwind-styled-components';
+import { useAppContext } from '../Brainstorm';
 import { assert } from '../../helpers/assert';
-import * as _ from 'tailwind-styled-components/node_modules/@types/react';
 
 export interface ITextProps extends PropsWithChildren<{}> {
   className?: string

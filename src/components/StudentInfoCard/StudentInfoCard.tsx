@@ -1,14 +1,39 @@
 import React, { useState } from "react";
+import tw from "tailwind-styled-components";
 import { Text } from '../Typography'
+
+const Card = tw.div`
+  w-full
+  rounded 
+  shadow 
+  bg-white 
+  md:px-6 
+  px-2 
+  py-8 
+  flex 
+  flex-col 
+  items-center 
+  md:max-w-sm 
+  md:mr-5 
+  mb-6
+`
+
+const Image = tw.div`
+  rounded-full 
+  w-20 
+  h-20 
+  border-4 
+  border-gray-100
+`
 
 export function StudentInfoCard () {
   const [state, setState] = useState(0);
 
   return (
-    <div className="w-full rounded shadow bg-white md:px-6 px-2 py-8 flex flex-col items-center md:max-w-sm md:mr-5 mb-6">
-      <div className="rounded-full w-20 h-20 border-4 border-gray-100">
+    <Card>
+      <Image>
         <img className="w-full h-full object-cover object-center" src="./assets/images/enrolled-student-1.png" alt="student" />
-      </div>
+      </Image>
       <h5 className="mt-4 mb-2 text-gray-800">Timothy Jon Oliphant</h5>
       <Text className="text-xs text-gray-600">Marketing Manager</Text>
       <Text className="text-xs text-gray-600">agents:DASHBOARD.TITLE.WELCOME</Text>
@@ -40,6 +65,6 @@ export function StudentInfoCard () {
       <button className="w-full sm:w-auto color-blue mt-6 bg-gray-200 hover:bg-gray-300 text-sm py-2 px-6 transition duration-150 ease-in-out rounded">
         Send Message
       </button>
-    </div>
+    </Card>
   )
 }
