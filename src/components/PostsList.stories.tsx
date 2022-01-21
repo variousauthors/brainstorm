@@ -1,6 +1,5 @@
-import React,{FC} from 'react'
+import React from 'react'
 
-import { ComponentStory, ComponentMeta } from '@storybook/react'
 import { useState } from 'react'
 import { PostsList as Base } from '@brainstorm'
 
@@ -11,16 +10,10 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
   },
-} as ComponentMeta<typeof Base>
-
-interface IStoryProps {
-
 }
 
-type Story<T> = ComponentStory<(props: T) => null> 
-
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-export const PostsList: Story<IStoryProps> = () => {
+export const PostsList = () => {
   const [currentPost, setCurrentPost] = useState('')
 
   return (

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import tw from "tailwind-styled-components";
+import React, { useState } from 'react'
+import tw from 'tailwind-styled-components'
 import { Text } from '../Typography'
 
 const Card = tw.div`
@@ -27,7 +27,7 @@ const Image = tw.div`
 `
 
 export function StudentInfoCard () {
-  const [state, setState] = useState(0);
+  const [state, setState] = useState(0)
 
   return (
     <Card>

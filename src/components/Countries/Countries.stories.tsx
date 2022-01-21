@@ -1,12 +1,11 @@
-import React from 'react';
-
-import { Countries } from '@brainstorm';
+import React from 'react'
+import { Countries } from '@brainstorm'
 
 export default {
   title: 'Countries',
   argTypes: {
   },
-};
+}
 
 function Template () {
   return (
@@ -14,4 +13,4 @@ function Template () {
   )
 }
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})

@@ -17,7 +17,7 @@ export function PostsList({ posts, onClick }: IPostsListProps) {
       <h1>Posts List Bar</h1>
       <Button />
       <ul>
-        {posts.map(post => (
+        {posts.map((post) => (
           <li key={post.slug}>
             <button onClick={() => onClick(post.slug)}>{post.title}</button>
           </li>

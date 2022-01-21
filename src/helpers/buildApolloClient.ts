@@ -8,12 +8,14 @@ import {
   NormalizedCacheObject,
   Observable,
   Operation,
-} from "@apollo/client";
-import { isDefined } from "./safeNavigation";
+} from '@apollo/client'
+import { assert } from './assert'
+import { isDefined } from './safeNavigation'
+import { buildTypeGuard } from './type-safety'
 
 class MissingSourceLink extends ApolloLink {
-  request(operation: Operation): Observable<FetchResult> | null {
-    throw new TypeError(`operation "${operation.operationName}" specified an unknown source: ${operation.getContext().source}`)
+  request(operation: Operation): Observable<FetchResult> {
+    throw new TypeError(`operation "${operation.operationName}" specified an unknown source`)
   }
 }
 
@@ -22,12 +24,23 @@ export const enum ESource {
   API_SERVER_V2,
 }
 
-function isApiServerV2 (source: ESource): source is ESource.API_SERVER_V2 {
-  return source === ESource.API_SERVER_V2
+const isBrainstormContext = buildTypeGuard({
+  source: isESource,
+})
+
+function checkSource (operation: Operation, source: ESource): boolean {
+  const context = operation.getContext()
+  assert(isBrainstormContext(context), `operation ${operation.operationName} did not specify a source.`)
+
+  return context.source === source
 }
 
-function isAgencyApi (source: ESource): source is ESource.AGENCY_API {
-  return source === ESource.AGENCY_API
+function isESource (obj: unknown): obj is ESource {
+  switch (obj) {
+    case ESource.AGENCY_API: return true
+    case ESource.API_SERVER_V2: return true
+    default: return false
+  }
 }
 
 interface IOptions {
@@ -42,28 +55,25 @@ export function _dangerouslyBuildApolloClient ({ fetch }: IOptions): ApolloClien
   }
 
   const brainstormLink = new ApolloLink((operation, forward) => {
-    const source = operation.getContext().source
-
-    if (!isDefined(source)) {
-      throw new TypeError(`${operation.operationName} did not specify a source.`)
-    }
+    const context = operation.getContext()
+    assert(isBrainstormContext(context), `operation ${operation.operationName} did not specify a source.`)
 
     return forward(operation)
   }).split(
-    (operation) => isAgencyApi(operation.getContext().source),
+    (operation) => checkSource(operation, ESource.AGENCY_API),
     new HttpLink({ uri: 'http://localhost:3000/graphql', fetch }),
     new ApolloLink((operation, forward) => forward(operation))
       .split(
-        (operation) => isApiServerV2(operation.getContext().source),
+        (operation) => checkSource(operation, ESource.API_SERVER_V2),
         new HttpLink({ uri: 'http://localhost:5000/graphql', fetch }),
         new MissingSourceLink(),
-      )
+      ),
   )
 
   _client = new ApolloClient({
     link: from([brainstormLink]),
     cache: new InMemoryCache(),
-  });
+  })
 
   return _client
 }

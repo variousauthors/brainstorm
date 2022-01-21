@@ -1,24 +1,32 @@
 import { useState, useReducer } from 'react'
 import axios from 'axios'
 import React from 'react'
+import { isDefined } from '../helpers'
 
-const initialState = {
-  error: null,
-  greeting: null,
+interface IState {
+  error: string
+  greeting: string
 }
 
-function greetingReducer(state: any, action: any) {
+const initialState: IState = {
+  error: '',
+  greeting: '',
+}
+
+type IAction = { type: 'SUCCESS' | 'ERROR', error: string, greeting: string }
+
+function greetingReducer(state: IState, action: IAction) {
   switch (action.type) {
     case 'SUCCESS': {
       return {
-        error: null,
+        error: '',
         greeting: action.greeting,
       }
     }
     case 'ERROR': {
       return {
         error: action.error,
-        greeting: null,
+        greeting: '',
       }
     }
     default: {
@@ -27,24 +35,23 @@ function greetingReducer(state: any, action: any) {
   }
 }
 
-export function Fetch({url}: any) {
+export function Fetch({ url }: { url: string }) {
   const [{error, greeting}, dispatch] = useReducer(
     greetingReducer,
     initialState,
   )
   const [buttonClicked, setButtonClicked] = useState(false)
 
-  const fetchGreeting = async (url: any) =>
+  const fetchGreeting = async (url: string) =>
     axios
-      .get(url)
-      .then(response => {
-        const {data} = response
-        const {greeting} = data
-        dispatch({type: 'SUCCESS', greeting})
+      .get<{ greeting: string }>(url)
+      .then((response) => {
+        const greeting = response.data.greeting
+        dispatch({ type: 'SUCCESS', greeting, error: '' })
         setButtonClicked(true)
       })
-      .catch(error => {
-        dispatch({type: 'ERROR', error})
+      .catch((error: string) => {
+        dispatch({ type: 'ERROR', error, greeting: '' })
       })
 
   const buttonText = buttonClicked ? 'Ok' : 'Load Greeting'
@@ -54,8 +61,8 @@ export function Fetch({url}: any) {
       <button onClick={() => fetchGreeting(url)} disabled={buttonClicked}>
         {buttonText}
       </button>
-      {greeting && <h1>{greeting}</h1>}
-      {error && <p role="alert">Oops, failed to fetch!</p>}
+      {isDefined(greeting) && <h1>{greeting}</h1>}
+      {isDefined(error) && <p role="alert">Oops, failed to fetch!</p>}
     </div>
   )
 }

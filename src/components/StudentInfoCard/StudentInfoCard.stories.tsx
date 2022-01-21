@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 
-import { StudentInfoCard } from '@brainstorm';
+import { StudentInfoCard } from '@brainstorm'
 
 export default {
   title: 'StudentInfoCard',
   argTypes: {
   },
-};
+}
 
 function Template () {
   return (
@@ -14,4 +14,4 @@ function Template () {
   )
 }
 
-export const Primary = Template.bind({});
+export const Primary = Template.bind({})

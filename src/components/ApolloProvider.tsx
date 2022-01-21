@@ -3,7 +3,7 @@ import { ApolloProvider as Base } from '@apollo/client'
 import { _dangerouslyBuildApolloClient } from '../helpers'
 import { PropsWithChildren } from 'react'
 
-interface IApolloProviderProps extends PropsWithChildren<{}> {
+interface IApolloProviderProps extends PropsWithChildren<unknown> {
   fetch?: (input: RequestInfo, init?: RequestInit | undefined) => Promise<Response>
 }
 

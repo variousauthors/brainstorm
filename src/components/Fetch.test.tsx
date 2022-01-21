@@ -5,7 +5,7 @@ import { Fetch } from './Fetch'
 
 test('loads and displays greeting', async () => {
   server.use(
-    rest.get('/greeting', (req, res, ctx) => {
+    rest.get('/greeting', (_req, res, ctx) => {
       return res(ctx.json({greeting: 'hello there'}))
     }),
   )
@@ -22,7 +22,7 @@ test('loads and displays greeting', async () => {
 
 test('handles server error', async () => {
   server.use(
-    rest.get('/greeting', (req, res, ctx) => {
+    rest.get('/greeting', (_req, res, ctx) => {
       return res(ctx.status(500))
     }),
   )

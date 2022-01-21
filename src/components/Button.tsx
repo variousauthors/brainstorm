@@ -1,6 +1,7 @@
+import { isDefined } from '../helpers'
 import React from 'react'
 import { useState, MouseEventHandler } from 'react'
-import tw from "tailwind-styled-components"
+import tw from 'tailwind-styled-components'
 
 const _Button = tw.button`
     w-full 
@@ -18,24 +19,24 @@ const _Button = tw.button`
     rounded
 `
 
-export interface ButtonProps {
+export interface IButtonProps {
     text?: string,
     primary?:boolean,
     disabled?: boolean,
-    size?: "small" | "medium" | "large",
+    size?: 'small' | 'medium' | 'large',
     onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
-export function Button ({size, primary, disabled, text, ...props}: any) {
-    const [state, setState] = useState(1)
+export function Button({ text }: IButtonProps) {
+  const [state, setState] = useState(1)
 
-    const handleClick = () => {
-        setState(state + 1);
-    }
+  const handleClick = () => {
+    setState(state + 1)
+  }
 
-    return (
-        <_Button className="" onClick={handleClick}>
-            {text ? text : 'Send Message' }
-        </_Button>
-    )
+  return (
+    <_Button className="" onClick={handleClick}>
+      {isDefined(text) ? text : 'Send Message' }
+    </_Button>
+  )
 }

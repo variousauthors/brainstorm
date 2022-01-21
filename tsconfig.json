@@ -23,6 +23,7 @@
     "declarationDir": "build/dist",
     "sourceMap": true,
     "allowUmdGlobalAccess": false,
+    "allowJs": false,
     "moduleResolution": "node",
     "emitDeclarationOnly": true,
     "allowSyntheticDefaultImports": true,
@@ -40,6 +41,7 @@
   "include": [
     "src/**/*.tsx",
     "src/**/*.ts",
+    ".eslintrc.js"
   ],
   "exclude": [
     "dist",

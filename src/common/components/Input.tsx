@@ -1,5 +1,5 @@
-import React from "react"
-import { ChangeEventHandler } from "react"
+import React from 'react'
+import { ChangeEventHandler } from 'react'
 
 export interface InputProps {
   value?: string
@@ -13,8 +13,8 @@ export interface InputProps {
   onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
-export const Input = ({id, disabled, label, message, error, success, onChange, placeholder, value, ...props}: InputProps) => {
-    return (
-      <div>Hello</div>
-    )
+export const Input = () => {
+  return (
+    <div>Hello</div>
+  )
 }

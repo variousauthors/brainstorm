@@ -1,8 +1,8 @@
 import React from 'react'
-import { IBrainstormBridge, _dangerouslyUpdateBrainstormBridge } from "../../helpers/buildBrainstormBridge";
+import { IBrainstormBridge, _dangerouslyUpdateBrainstormBridge } from '../../helpers/buildBrainstormBridge'
 
 interface IBrainstormBridgeProps extends Partial<IBrainstormBridge> {
-  
+
 }
 
 export function BrainstormBridge (props: IBrainstormBridgeProps) {

@@ -4,7 +4,7 @@ export interface IBrainstormBridge {
 }
 
 export const initialBrainstormBridge: IBrainstormBridge = {
-  t: (str: string) => str
+  t: (str: string) => str,
 }
 
 let _brainstormBridge: IBrainstormBridge = {
@@ -18,6 +18,6 @@ export function _dangerouslyGetBrainstormBridge() {
 export function _dangerouslyUpdateBrainstormBridge(next: (prev: IBrainstormBridge) => IBrainstormBridge): void {
   _brainstormBridge = {
     ..._brainstormBridge,
-    ...next(_brainstormBridge)
+    ...next(_brainstormBridge),
   }
 }

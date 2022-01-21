@@ -1,13 +1,13 @@
 import '@testing-library/jest-dom'
-import React, { PropsWithChildren } from 'react'
-import fetch from 'cross-fetch';
+import React, { PropsWithChildren, ReactNode } from 'react'
+import fetch from 'cross-fetch'
 import { render } from '@testing-library/react'
 import { setupServer } from 'msw/node'
-import { graphql } from 'msw';
-import { ApolloProvider } from '../components/ApolloProvider';
-import { _dangerouslyBuildApolloClient } from './buildApolloClient';
+import { graphql } from 'msw'
+import { ApolloProvider } from '../components/ApolloProvider'
+import { _dangerouslyBuildApolloClient } from './buildApolloClient'
 
-const AllTheProviders = ({ children }: PropsWithChildren<{}>) => {
+const AllTheProviders = ({ children }: PropsWithChildren<unknown>) => {
   return (
     <ApolloProvider fetch={fetch}>
       {children}
@@ -16,7 +16,7 @@ const AllTheProviders = ({ children }: PropsWithChildren<{}>) => {
 }
 
 export const server = setupServer(
-  graphql.query('countries', (req, res, ctx) => {
+  graphql.query('countries', (_req, res, ctx) => {
     return res(
       ctx.data({
         countries: [{
@@ -27,7 +27,7 @@ export const server = setupServer(
     )
   }),
 
-  graphql.query('getCountryList', (req, res, ctx) => {
+  graphql.query('getCountryList', (_req, res, ctx) => {
     return res(
       ctx.data({
         getCountryList: [{
@@ -47,15 +47,15 @@ beforeAll(() => {
 })
 
 afterEach(() => {
-  client.resetStore()
   server.resetHandlers()
+  return client.resetStore()
 })
 
 afterAll(() => {
   server.close()
 })
 
-const customRender = (ui: any, options?: any) =>
+const customRender = (ui: ReactNode, options = {}) =>
   render(<AllTheProviders>{ui}</AllTheProviders>, { ...options })
 
 // re-export everything
