@@ -21,7 +21,7 @@ function TranslatedText ({ children, className }: ITextProps): ReactElement {
   assert(isReactText(children), 'Assertion Failed: tried to translate something that is not text or number.')
 
   return (
-    <div className={className}>{t(children.toString())}</div>
+    <span className={className}>{t(children.toString())}</span>
   )
 }
 

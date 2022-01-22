@@ -1,7 +1,7 @@
 import { stringify } from '../toString'
 import { isDefined, isUndefined } from '../safeNavigation'
 import { JSObject, TypeGuard, TypeGuide, TypeObject } from './metadata'
-import { assert } from 'helpers'
+import { assert } from '../assert'
 
 export function isString(value: unknown): value is string {
   return typeof value === 'string'
