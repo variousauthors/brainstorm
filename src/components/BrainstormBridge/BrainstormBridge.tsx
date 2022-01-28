@@ -1,17 +1,32 @@
-import React from 'react'
+import React, { } from 'react'
 import { IBrainstormBridge, _dangerouslyUpdateBrainstormBridge } from '../../helpers/buildBrainstormBridge'
+
+export const subscriptions: Map<string, () => void> = new Map()
 
 interface IBrainstormBridgeProps extends Partial<IBrainstormBridge> {
 
 }
 
-export function BrainstormBridge (props: IBrainstormBridgeProps) {
-  _dangerouslyUpdateBrainstormBridge((prev) => {
-    return {
-      ...prev,
-      ...props,
-    }
-  })
+// whenever brainstorm bridge updates, we want all the Brainstorms everywhere to update
+// whenever a brainstorm is mounted or unmounted we want it to subscribe/unscubscribe
 
-  return (<></>)
+export class BrainstormBridge extends React.Component<IBrainstormBridgeProps> {
+
+  componentDidUpdate() {
+    subscriptions.forEach((handler) => {
+      handler()
+    })
+
+    _dangerouslyUpdateBrainstormBridge((prev) => {
+      console.log('next', this.props)
+      return {
+        ...prev,
+        ...this.props,
+      }
+    })
+  }
+
+  render () {
+    return (<></>)
+  }
 }

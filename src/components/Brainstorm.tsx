@@ -1,8 +1,10 @@
 import React, { FunctionComponent } from 'react'
-import { PropsWithChildren } from 'react'
+import { v4 as uuid } from 'uuid'
 import { ApolloProvider } from './ApolloProvider'
 import { useContext } from 'react'
 import { IBrainstormBridge, initialBrainstormBridge, _dangerouslyGetBrainstormBridge } from '../helpers/buildBrainstormBridge'
+import { IReactComponentProps } from './metadata'
+import { subscriptions } from './BrainstormBridge'
 
 export interface IAppContext extends IBrainstormBridge {
 
@@ -13,7 +15,49 @@ export const AppContext = React.createContext<IAppContext>({
 })
 
 export function useAppContext() {
+  console.log('useAppContext')
   return useContext(AppContext)
+}
+
+interface IBrainstormProps extends IReactComponentProps {
+
+}
+
+export class Brainstorm extends React.Component<IBrainstormProps> {
+  id: string
+
+  constructor (props: IBrainstormProps) {
+    super(props)
+    this.id = uuid()
+    this.state = { shouldRender: {} }
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount', this)
+
+    subscriptions.set(this.id, () => {
+      console.log(this.id, 'callback')
+      this.setState(() => ({ shouldRender: {} }))
+    })
+  }
+
+  componentWillUnmount() {
+    console.log('componentWillUnmount', this)
+
+    subscriptions.delete(this.id)
+  }
+
+  render () {
+    const appContext = _dangerouslyGetBrainstormBridge()
+
+    return (
+      <ApolloProvider>
+        <AppContext.Provider value={appContext}>
+          {this.props.children}
+        </AppContext.Provider>
+      </ApolloProvider>
+    )
+  }
 }
 
 export function brainstorm<T> (Component: FunctionComponent<T>) {
@@ -26,20 +70,4 @@ export function brainstorm<T> (Component: FunctionComponent<T>) {
   component.displayName = Component.displayName
 
   return component
-}
-
-export function Brainstorm ({ children }: PropsWithChildren<unknown>) {
-  const brainstormBridge = _dangerouslyGetBrainstormBridge()
-
-  const appContext = {
-    ...brainstormBridge,
-  }
-
-  return (
-    <ApolloProvider>
-      <AppContext.Provider value={appContext}>
-        {children}
-      </AppContext.Provider>
-    </ApolloProvider>
-  )
 }

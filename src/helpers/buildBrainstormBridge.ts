@@ -1,13 +1,18 @@
 
 export interface IBrainstormBridge {
   t: (str: string) => string
+  store: {
+    state: Record<string, unknown>
+    actions: Record<string, unknown>
+  }
 }
 
 export const initialBrainstormBridge: IBrainstormBridge = {
   t: (str: string) => str,
+  store: { state: {}, actions: {} },
 }
 
-let _brainstormBridge: IBrainstormBridge = {
+const _brainstormBridge: IBrainstormBridge = {
   ...initialBrainstormBridge,
 }
 
@@ -16,8 +21,7 @@ export function _dangerouslyGetBrainstormBridge() {
 }
 
 export function _dangerouslyUpdateBrainstormBridge(next: (prev: IBrainstormBridge) => IBrainstormBridge): void {
-  _brainstormBridge = {
-    ..._brainstormBridge,
+  Object.assign(_brainstormBridge, {
     ...next(_brainstormBridge),
-  }
+  })
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button, ButtonProps } from '@brainstorm'
+import { Button, IButtonProps } from '@brainstorm'
 
 export default {
   title: 'Button',
@@ -8,7 +8,7 @@ export default {
   },
 }
 
-function Template (args: ButtonProps) {
+function Template (args: IButtonProps) {
   return (
     <Button {...args} />
   )
