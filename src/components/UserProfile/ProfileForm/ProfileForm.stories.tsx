@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { ProfileForm } from '@brainstorm'
 
@@ -9,8 +9,10 @@ export default {
 }
 
 function Template () {
+  const [userProfile, setUserProfile] = useState({ firstName: 'Bob' })
+
   return (
-    <ProfileForm />
+    <ProfileForm userProfile={userProfile} onChange={setUserProfile} onSubmit={() => alert('Nooice!')} />
   )
 }
 

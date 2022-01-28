@@ -4,7 +4,6 @@ import { ApolloProvider } from './ApolloProvider'
 import { useContext } from 'react'
 import { IBrainstormBridge, initialBrainstormBridge, _dangerouslyGetBrainstormBridge } from '../helpers/buildBrainstormBridge'
 import { IReactComponentProps } from './metadata'
-import { subscriptions } from './BrainstormBridge'
 
 export interface IAppContext extends IBrainstormBridge {
 
@@ -15,7 +14,6 @@ export const AppContext = React.createContext<IAppContext>({
 })
 
 export function useAppContext() {
-  console.log('useAppContext')
   return useContext(AppContext)
 }
 
@@ -33,22 +31,18 @@ export class Brainstorm extends React.Component<IBrainstormProps> {
   }
 
   componentDidMount() {
-    console.log('componentDidMount', this)
-
-    subscriptions.set(this.id, () => {
-      console.log(this.id, 'callback')
-      this.setState(() => ({ shouldRender: {} }))
-    })
+    // subscriptions.set(this.id, () => {
+    //   this.setState(() => ({ shouldRender: {} }))
+    // })
   }
 
   componentWillUnmount() {
-    console.log('componentWillUnmount', this)
-
-    subscriptions.delete(this.id)
+    // subscriptions.delete(this.id)
   }
 
   render () {
     const appContext = _dangerouslyGetBrainstormBridge()
+    console.log('Brainstorm')
 
     return (
       <ApolloProvider>

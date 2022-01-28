@@ -73,9 +73,11 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.7",
+    "@types/lodash": "^4.14.178",
     "@types/uuid": "^8.3.4",
     "axios": "^0.24.0",
     "graphql": "^16.2.0",
+    "lodash": "^4.17.21",
     "postcss-loader": "^6.2.1",
     "styled-components": "^5.3.3",
     "tailwind-styled-components": "^2.1.2",

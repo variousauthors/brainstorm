@@ -13,12 +13,11 @@ interface IBrainstormBridgeProps extends Partial<IBrainstormBridge> {
 export class BrainstormBridge extends React.Component<IBrainstormBridgeProps> {
 
   componentDidUpdate() {
-    subscriptions.forEach((handler) => {
-      handler()
-    })
+    // subscriptions.forEach((handler) => {
+    //   handler()
+    // })
 
     _dangerouslyUpdateBrainstormBridge((prev) => {
-      console.log('next', this.props)
       return {
         ...prev,
         ...this.props,

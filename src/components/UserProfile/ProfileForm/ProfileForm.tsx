@@ -1,6 +1,8 @@
-import React, { } from 'react'
+import { useDraft } from '../../../helpers'
+import React, { useMemo } from 'react'
 import { IReactComponentProps } from '../../metadata'
 import { Text } from '../../Typography'
+import { debounce, DebouncedFunc } from 'lodash'
 
 export interface IProfileFormProps extends IReactComponentProps {
   userProfile: { firstName: string }
@@ -8,12 +10,31 @@ export interface IProfileFormProps extends IReactComponentProps {
   onSubmit: () => void
 }
 
+function useDebounce<T>(fn: (...args: T[]) => void, wait: number, deps: React.DependencyList): DebouncedFunc<(...args: T[]) => void> {
+  return useMemo(
+    () => debounce(fn, wait),
+    deps,
+  )
+}
+
 export function ProfileForm (props: IProfileFormProps) {
   console.log('ProfileForm')
 
+  const onPublish = useDebounce((userProfile: { firstName: string }) => {
+    props.onChange(userProfile)
+  }, 500, [])
+
+  const { draft, handleDraftChange, handlePublish } = useDraft({
+    source: props.userProfile,
+    onPublish,
+  })
+
+
   function handleChange (e: React.ChangeEvent<HTMLInputElement>) {
-    console.log('handleChange')
-    props.onChange({ ...props.userProfile, firstName: e.target.value })
+    const next = { ...props.userProfile, firstName: e.target.value }
+
+    handleDraftChange(next)
+    handlePublish()
   }
 
   return (
@@ -40,7 +61,14 @@ export function ProfileForm (props: IProfileFormProps) {
                 </label>
                 <div className="field-wrap">
                   <div className="wrapper">
-                    <input value={props.userProfile.firstName} onChange={handleChange} id="field-firstName" type="text" required className="form-control" />
+                    <input
+                      id="field-firstName"
+                      type="text"
+                      className="form-control"
+                      value={draft.firstName}
+                      onChange={handleChange}
+                      required
+                    />
                   </div>
                 </div>
               </div>
