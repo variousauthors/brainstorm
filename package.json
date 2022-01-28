@@ -54,7 +54,6 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-terser": "^7.0.2",
     "style-loader": "^3.3.1",
-    "tailwind-styled-components": "file:../Tailwind-Styled-Component",
     "tailwindcss": "^3.0.14",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.4",
@@ -79,6 +78,7 @@
     "graphql": "^16.2.0",
     "postcss-loader": "^6.2.1",
     "styled-components": "^5.3.3",
+    "tailwind-styled-components": "^2.1.2",
     "uuid": "^8.3.2"
   },
   "moduleNameMapper": {
