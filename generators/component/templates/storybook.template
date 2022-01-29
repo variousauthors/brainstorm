@@ -1,0 +1,14 @@
+import * as React from 'react'
+import { talesOf } from '@atoms/helpers'
+import { Card } from '@atoms/components'
+import { <%= ComponentName %> } from './<%= ComponentName %>'
+
+function Storybook () {
+  return (
+    <Card>
+      <<%= ComponentName %> />
+    </Card>
+  )
+}
+
+talesOf(module, Storybook)

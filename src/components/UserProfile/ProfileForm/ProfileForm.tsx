@@ -1,8 +1,7 @@
-import { useDraft } from '../../../helpers'
-import React, { useMemo } from 'react'
+import React, { } from 'react'
+import { useWeakState, useDebounce } from '../../../helpers'
 import { IReactComponentProps } from '../../metadata'
 import { Text } from '../../Typography'
-import { debounce, DebouncedFunc } from 'lodash'
 
 export interface IProfileFormProps extends IReactComponentProps {
   userProfile: { firstName: string }
@@ -10,36 +9,21 @@ export interface IProfileFormProps extends IReactComponentProps {
   onSubmit: () => void
 }
 
-function useDebounce<T>(fn: (...args: T[]) => void, wait: number, deps: React.DependencyList): DebouncedFunc<(...args: T[]) => void> {
-  return useMemo(
-    () => debounce(fn, wait),
-    deps,
-  )
-}
-
 export function ProfileForm (props: IProfileFormProps) {
   console.log('ProfileForm')
+  const [userProfile, setUserProfile] = useWeakState(props.userProfile)
 
-  const onPublish = useDebounce((userProfile: { firstName: string }) => {
-    props.onChange(userProfile)
-  }, 500, [])
-
-  const { draft, handleDraftChange, handlePublish } = useDraft({
-    source: props.userProfile,
-    onPublish,
-  })
-
+  const onChange = useDebounce(props.onChange, 200, [])
 
   function handleChange (e: React.ChangeEvent<HTMLInputElement>) {
     const next = { ...props.userProfile, firstName: e.target.value }
 
-    handleDraftChange(next)
-    handlePublish()
+    setUserProfile(next)
+    onChange(next)
   }
 
   return (
     <div className="element-wrapper">
-      {props.userProfile.firstName}
       <div className="element-box">
         <div className="element-info">
           <div className="element-info-with-icon">
@@ -65,7 +49,7 @@ export function ProfileForm (props: IProfileFormProps) {
                       id="field-firstName"
                       type="text"
                       className="form-control"
-                      value={draft.firstName}
+                      value={userProfile.firstName}
                       onChange={handleChange}
                       required
                     />
