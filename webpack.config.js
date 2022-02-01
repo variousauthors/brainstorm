@@ -25,6 +25,8 @@ module.exports = (env) => {
     resolve: {
       alias: {
         "@Brainstorm": path.resolve(__dirname, 'build/dist/'),
+        "@atoms": path.resolve(__dirname, 'src/atoms/'),
+        "@common": path.resolve(__dirname, 'src/common/'),
       },
       extensions: [".ts", ".tsx", ".js"]
     },
