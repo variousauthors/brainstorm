@@ -1,4 +1,0 @@
-import { <%= ComponentName %> as Base } from '../<%= ComponentName %>'
-import { <%= specializer %> } from '@client/containers'
-
-export const <%= SpecializedName %> = <%= specializer %>(Base, [])

@@ -1,14 +1,17 @@
-import * as React from 'react'
-import { talesOf } from '@atoms/helpers'
-import { Card } from '@atoms/components'
-import { <%= ComponentName %> } from './<%= ComponentName %>'
+import React from 'react'
 
-function Storybook () {
+import { <%= ComponentName %> } from '@brainstorm'
+
+export default {
+  title: '<%= ComponentName %>',
+  argTypes: {
+  },
+}
+
+function Template () {
   return (
-    <Card>
-      <<%= ComponentName %> />
-    </Card>
+    <<%= ComponentName %> />
   )
 }
 
-talesOf(module, Storybook)
+export const Primary = Template.bind({})

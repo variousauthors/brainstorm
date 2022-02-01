@@ -1,0 +1,3 @@
+import { brainstorm } from '@atoms/_entry'
+import { <%= ComponentName %> as Base } from './<%= ComponentName %>'
+export const <%= ComponentName %> = brainstorm(Base)

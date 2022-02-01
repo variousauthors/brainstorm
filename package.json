@@ -86,7 +86,9 @@
     "uuid": "^8.3.2"
   },
   "moduleNameMapper": {
-    "@brainstorm": "<rootDir>/dist"
+    "@brainstorm": "<rootDir>/dist",
+    "@atoms/(.*)": "<rootDir>/src/atoms/$1",
+    "@common/(.*)": "<rootDir>/src/common/$1"
   },
   "jest": {
     "testEnvironment": "jsdom",

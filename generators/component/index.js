@@ -44,6 +44,20 @@ class Base extends Generator {
     );
   }
 
+  /** in Brainstorm we wrap the component here instead of using
+   * specializations because we don't need to specialize */
+  createComponentManifest () {
+    const { pathname, ComponentName } = this
+
+    this.fs.copyTpl(
+      this.templatePath('component-manifest.template'),
+      this.destinationPath(`${pathname}/index.ts`),
+      {
+        ComponentName,
+      }
+    );
+  }
+
   createStorybook () {
     const { pathname, ComponentName } = this
 
@@ -64,40 +78,6 @@ class Base extends Generator {
       this.destinationPath(`${pathname}/components/index.ts`),
       {
         moduleNames: []
-      }
-    );
-  }
-
-  createSpecializations () {
-    const { pathname, ComponentName } = this
-    const SpecializedName = `${ComponentName}WebClient`
-
-    // create the specialization component
-    this.fs.copyTpl(
-      this.templatePath('specialization.template'),
-      this.destinationPath(`${pathname}/specializations/${SpecializedName}.tsx`),
-      {
-        ComponentName,
-        specializer: 'agencyAngularize',
-        SpecializedName
-      }
-    );
-
-    // export it from the manifest
-    this.fs.copyTpl(
-      this.templatePath('manifest.template'),
-      this.destinationPath(`${pathname}/specializations/index.ts`),
-      {
-        moduleNames: [SpecializedName]
-      }
-    );
-
-    // update the parent manifest
-    this.fs.copyTpl(
-      this.templatePath('manifest.template'),
-      this.destinationPath(`${pathname}/index.ts`),
-      {
-        moduleNames: ['specializations']
       }
     );
   }
@@ -157,9 +137,8 @@ module.exports = class extends Base {
 
     this.createComponent()
     this.createStorybook()
-    this.createManifest()
+    this.createComponentManifest()
 
     this.createSubComponentsFolder()
-    this.createSpecializations()
   }
 }
