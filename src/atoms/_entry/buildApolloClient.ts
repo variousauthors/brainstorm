@@ -4,11 +4,13 @@ import {
   FetchResult,
   from,
   HttpLink,
+  HttpOptions,
   InMemoryCache,
   NormalizedCacheObject,
   Observable,
   Operation,
 } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
 import { assert, isDefined, buildTypeGuard } from '@atoms/helpers'
 
 class MissingSourceLink extends ApolloLink {
@@ -17,9 +19,24 @@ class MissingSourceLink extends ApolloLink {
   }
 }
 
+function EdvisorHttpLink (options: HttpOptions & { apiKey: string }) {
+  const authLink = setContext((_, { headers }: { headers: { authorization: string } }) => {
+    const apiKey = options.apiKey
+
+    return {
+      headers: {
+        ...headers,
+        authorization: `Bearer ${apiKey}`,
+      },
+    }
+  })
+
+  return authLink.concat(new HttpLink(options))
+}
+
 export const enum ESource {
-  AGENCY_API,
-  API_SERVER_V2,
+  AGENCY_API = 'AGENCY_API',
+  API_SERVER_V2 = 'API_SERVER_V2',
 }
 
 const isBrainstormContext = buildTypeGuard({
@@ -59,11 +76,11 @@ export function _dangerouslyBuildApolloClient ({ fetch }: IOptions): ApolloClien
     return forward(operation)
   }).split(
     (operation) => checkSource(operation, ESource.AGENCY_API),
-    new HttpLink({ uri: 'http://localhost:3000/graphql', fetch }),
+    EdvisorHttpLink({ apiKey: '', uri: 'http://localhost:3000/graphql', fetch }),
     new ApolloLink((operation, forward) => forward(operation))
       .split(
         (operation) => checkSource(operation, ESource.API_SERVER_V2),
-        new HttpLink({ uri: 'http://localhost:5000/graphql', fetch }),
+        EdvisorHttpLink({ apiKey: '', uri: 'http://localhost:5000/graphql', fetch }),
         new MissingSourceLink(),
       ),
   )

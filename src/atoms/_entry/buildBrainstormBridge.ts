@@ -4,7 +4,7 @@ export interface IBrainstormBridge {
   store: {
     state: Record<string, unknown>
     actions: Record<string, unknown>
-  }
+  },
 }
 
 export const initialBrainstormBridge: IBrainstormBridge = {

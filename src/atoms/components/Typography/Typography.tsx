@@ -18,7 +18,6 @@ function isReactText (obj: unknown): obj is ReactText {
  * the default is just div but sometimes you need a text element to be an h1
 */
 function TranslatedText ({ children, className, as }: ITextProps): ReactElement {
-  console.log('TranslatedText', children?.toString())
   const { t } = useAppContext()
 
   assert(isReactText(children), 'Assertion Failed: tried to translate something that is not text or number.')

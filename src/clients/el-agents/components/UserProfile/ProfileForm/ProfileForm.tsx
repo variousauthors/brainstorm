@@ -10,7 +10,6 @@ export interface IProfileFormProps extends IReactComponentProps {
 }
 
 export function ProfileForm (props: IProfileFormProps) {
-  console.log('ProfileForm')
   const [userProfile, setUserProfile] = useWeakState(props.userProfile)
 
   const onChange = useDebounce(props.onChange, 200, [])

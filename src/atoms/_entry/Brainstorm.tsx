@@ -37,7 +37,6 @@ export class Brainstorm extends React.Component<IBrainstormProps> {
 
   render () {
     const appContext = _dangerouslyGetBrainstormBridge()
-    console.log('Brainstorm')
 
     return (
       <ApolloProvider>
