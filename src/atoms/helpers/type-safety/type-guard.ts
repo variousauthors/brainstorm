@@ -1,5 +1,5 @@
 import { stringify } from '../toString'
-import { isDefined, isUndefined } from '../safeNavigation'
+import { isDefined, isNil } from '../safeNavigation'
 import { JSObject, TypeGuard, TypeGuide, TypeObject } from './metadata'
 import { assert } from '../assert'
 
@@ -70,12 +70,12 @@ export function optional <T>(
   rule: TypeGuard<T> | [TypeGuard<T>] | TypeObject,
 ): TypeGuard<T | undefined> {
   return (value: unknown): value is T | undefined => {
-    if (isUndefined(value)) {
+    if (isNil(value)) {
       return true
     }
 
     if (isFunction(rule)) {
-      return isUndefined(value) || rule(value)
+      return isNil(value) || rule(value)
     }
 
     if (isArray(rule)) {
@@ -87,7 +87,7 @@ export function optional <T>(
     }
 
     if (isObject(value)) {
-      return isUndefined(value) || typeGuard(rule)(value)
+      return isNil(value) || typeGuard(rule)(value)
     }
 
     return false
@@ -97,7 +97,7 @@ export function optional <T>(
 const failRule = <T extends JSObject>(_rule: TypeGuard<T>, key: string, subject: unknown): void => {
   const name = isDefined(_rule.name) ? _rule.name : '(anonymous typeguard)'
 
-  if (isUndefined(subject)) {
+  if (isNil(subject)) {
     // eslint-disable-next-line no-console
     console.warn(`Runtime typeguard failed: required property ${key} was nil: ${stringify(subject)}`)
   }
@@ -148,7 +148,7 @@ export function recoverRule <T>(rule: TypeGuard<T> | [TypeGuard<T>] | TypeObject
 function typeGuard<T>(rules: TypeObject): TypeGuard<T> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (obj: any): obj is T => {
-    if (isUndefined(obj)) {
+    if (isNil(obj)) {
       return false
     }
 

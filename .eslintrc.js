@@ -26,6 +26,7 @@ module.exports = {
     'react',
     '@typescript-eslint',
     'no-null',
+    'no-loops',
   ],
   'rules': {
     'no-irregular-whitespace': 'error',
@@ -33,6 +34,7 @@ module.exports = {
     'no-trailing-spaces': 'error',
     'brace-style': 'error',
     'no-null/no-null': 2,
+    'no-loops/no-loops': 2,
     'arrow-parens': 'error',
     'arrow-spacing': 'error',
     'no-confusing-arrow': 'error',
@@ -60,7 +62,7 @@ module.exports = {
       'never',
     ],
     'no-unused-vars': 'off',
-    'no-plusplus': 'error',
+    'no-plusplus': ['error', { 'allowForLoopAfterthoughts': true }],
     'no-param-reassign': ['error', { 'props': false }],
     'comma-dangle': ['error', 'always-multiline'],
     '@typescript-eslint/no-empty-interface': [

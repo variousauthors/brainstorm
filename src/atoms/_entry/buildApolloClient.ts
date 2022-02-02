@@ -80,7 +80,7 @@ export function _dangerouslyBuildApolloClient ({ fetch }: IOptions): ApolloClien
     new ApolloLink((operation, forward) => forward(operation))
       .split(
         (operation) => checkSource(operation, ESource.API_SERVER_V2),
-        EdvisorHttpLink({ apiKey: '', uri: 'http://localhost:5000/graphql', fetch }),
+        EdvisorHttpLink({ apiKey: 'private_9eee722f259899b46bc0ad4942f63160', uri: 'http://localhost:5000/graphql', fetch }),
         new MissingSourceLink(),
       ),
   )
