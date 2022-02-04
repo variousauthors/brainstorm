@@ -14,7 +14,8 @@
     "build": "rm -rf dist && webpack --no-watch",
     "lint": "yarn eslint src/",
     "storybook": "cd storybook; yarn storybook",
-    "g:component": "yo ./generators/component/index.js"
+    "g:component": "yo ./generators/component/index.js",
+    "g:query": "yo ./generators/query/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -47,6 +48,7 @@
     "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-no-null": "^1.0.2",
     "eslint-plugin-react": "^7.28.0",
+    "findit": "^2.0.0",
     "jest": "^27.4.7",
     "msw": "^0.36.4",
     "postcss": "^8.4.5",

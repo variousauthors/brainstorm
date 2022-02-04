@@ -1,0 +1,78 @@
+import { useMemo } from 'react'
+import { isDefined, isNil, safelyCallEffect } from '@atoms/helpers'
+import { useQuery } from '@atoms/hooks'
+import { ESource } from '@atoms/_entry'
+import gql from 'graphql-tag'
+import { makeMock } from '@common/helpers'
+
+/* this is what your hook returns */
+interface IResultObject {
+
+}
+
+/* this is what your query returns */
+interface IResponse {
+  <%= queryName %>: IResultObject[]
+}
+
+interface I<%= QueryName %>Variables {
+
+}
+
+const QUERY = gql`
+  query <%= queryName %> {
+    <%= queryName %> {
+      <%= queryName %>Id
+    }
+  }
+`
+
+interface IOptions {
+  skip?: boolean
+  onCompleted?: (<%= queryName %>: IResultObject) => void
+}
+
+export function <%= hookName %>(variables?: I<%= QueryName %>Variables, options?: IOptions) {
+  const { data, error, loading } = useQuery<IResponse, I<%= QueryName %>Variables>(QUERY, ESource.<%= source %>, {
+    variables,
+    skip: options?.skip,
+    onCompleted: (data) => {
+      safelyCallEffect(options?.onCompleted, data.<%= queryName %>.map(toResultObject))
+    },
+  })
+
+  return useMemo(() => {
+    if (isDefined(error)) {
+      throw new Error(error.message)
+    }
+
+    if (isNil(data) || loading) {
+      return {
+        <%= queryName %>: [],
+        isLoading: true
+      }
+    }
+
+    return {
+      <%= queryName %>: data.<%= queryName %>.map(toResultObject),
+      isLoading: false,
+    }
+  }, [data?.<%= queryName %>, error, loading])
+}
+
+function toResultObject(response: I<%= QueryName %>Response): IResultObject {
+  return {
+
+  }
+}
+
+/* DO NOT DELETE THIS
+ * you will use it in your tests. You can add a default response 
+ * here if you want, but in practice tests will often provide 
+ * their own mock data */
+export const mock = makeMock<IResponse, I<%= QueryName %>Variables>(
+  '<%= queryName %>',
+  {
+    <%= queryName %>: [],
+  },
+)

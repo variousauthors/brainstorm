@@ -1,0 +1,3 @@
+<% moduleNames.forEach((moduleName) => { -%>
+export * from './<%= moduleName %>'
+<% }) -%>
