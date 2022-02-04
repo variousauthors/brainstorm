@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, screen, server } from '@src/test-utils'
+import { fireEvent, render, screen, server, Screen } from '@src/test-utils'
 import { mock } from './hooks/useQueryCourseCategories'
 import { IMultiSelectTaxonomyData, MultiSelectCourseCategoryByTaxonomy } from './MultiSelectCourseCategoryByTaxonomy'
 
@@ -126,7 +126,16 @@ test('shows a progress bar while it does not have data', () => {
   expect(screen.getByRole('progressbar'))
 })
 
+async function openTheCourseTypeDropdown(screen: Screen) {
+  const control = await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE')
+
+  fireEvent.click(control)
+
+  await screen.findByRole('listbox')
+}
+
 describe('type options', () => {
+
   test('the type dropdown only includes types', async () => {
     server.use(mockQuery)
 
@@ -137,11 +146,7 @@ describe('type options', () => {
       />,
     )
 
-    await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE')
-
-    fireEvent.click(screen.getByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE'))
-
-    await screen.findByRole('listbox')
+    await openTheCourseTypeDropdown(screen)
 
     const general = screen.queryByRole('option', { name: /GENERAL/i })
 
@@ -158,11 +163,7 @@ describe('type options', () => {
       />,
     )
 
-    await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE')
-
-    fireEvent.click(screen.getByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE'))
-
-    await screen.findByRole('listbox')
+    await openTheCourseTypeDropdown(screen)
 
     const english = screen.queryByRole('option', { name: /ENGLISH/i})
     const languages = screen.queryByRole('option', { name: /LANGUAGES/i})
@@ -198,11 +199,7 @@ describe('type options', () => {
       />,
     )
 
-    await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE')
-
-    fireEvent.click(screen.getByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE'))
-
-    await screen.findByRole('listbox')
+    await openTheCourseTypeDropdown(screen)
 
     const MAGIC = screen.queryByRole('option', { name: /MAGIC/i})
 
@@ -221,9 +218,7 @@ describe('type options', () => {
       />,
     )
 
-    await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE')
-
-    fireEvent.click(screen.getByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE'))
+    await openTheCourseTypeDropdown(screen)
 
     await screen.findByRole('option', { name: /ENGLISH/i })
 
@@ -242,6 +237,14 @@ describe('type options', () => {
     ])
   })
 })
+
+async function openTheCourseProgramDropdown (screen: Screen) {
+  const PROGRAM = await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_PROGRAM')
+
+  fireEvent.click(PROGRAM)
+
+  await screen.findByRole('listbox')
+}
 
 describe('the programs', () => {
   const taxonomiesData = [
@@ -266,11 +269,7 @@ describe('the programs', () => {
       />,
     )
 
-    const PROGRAM = await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_PROGRAM')
-
-    fireEvent.click(PROGRAM)
-
-    await screen.findByRole('listbox')
+    await openTheCourseProgramDropdown(screen)
 
     const languages = screen.queryByRole('option', { name: /LANGUAGES/i })
     const english = screen.queryByRole('option', { name: /ENGLISH/i })
@@ -293,34 +292,17 @@ describe('the programs', () => {
       />,
     )
 
-    const PROGRAM = await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_PROGRAM')
-
-    fireEvent.click(PROGRAM)
-
-    await screen.findByRole('listbox')
+    await openTheCourseProgramDropdown(screen)
 
     const business = screen.queryByRole('option', { name: /BUSINESS/i})
 
     expect(business).not.toBeInTheDocument()
   })
 
-  test('if you select English and Chinese you will see GENERAL only once', async () => {
+  test('if you select English and Chinese you will see GENERAL in the list only once', async () => {
     server.use(mock({
       offeringCourseCategories: [
         ...mockData,
-        {
-          codeName: 'GENERAL_ENGLISH',
-          depth: 2,
-          offeringCourseCategoryContent: {
-            offeringCourseCategoryContentId: GENERAL,
-            codeName: 'GENERAL',
-          },
-          offeringCourseCategoryContentId: GENERAL,
-          offeringCourseCategoryId: 3,
-          offeringCourseCategoryTaxonomyId: 2,
-          left: 3,
-          right: 4,
-        },
         {
           codeName: 'GENERAL_CHINESE',
           depth: 2,
@@ -337,30 +319,24 @@ describe('the programs', () => {
       ],
     }))
 
-    const taxonomiesData = [
-      {
-        placeholder: 'BROWSE.SCHOOLS.ENTER_COURSE_TYPE',
-        selectedContentIds: [ENGLISH, CHINESE],
-        taxonomyId: 1,
-      }, {
-        placeholder: 'BROWSE.SCHOOLS.ENTER_COURSE_PROGRAM',
-        selectedContentIds: [],
-        taxonomyId: 2,
-      },
-    ]
-
     render(
       <MultiSelectCourseCategoryByTaxonomy
         onChange={jest.fn}
-        taxonomiesData={taxonomiesData}
+        taxonomiesData={[
+          {
+            placeholder: 'BROWSE.SCHOOLS.ENTER_COURSE_TYPE',
+            selectedContentIds: [ENGLISH, CHINESE],
+            taxonomyId: 1,
+          }, {
+            placeholder: 'BROWSE.SCHOOLS.ENTER_COURSE_PROGRAM',
+            selectedContentIds: [],
+            taxonomyId: 2,
+          },
+        ]}
       />,
     )
 
-    const PROGRAM = await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_PROGRAM')
-
-    fireEvent.click(PROGRAM)
-
-    await screen.findByRole('listbox')
+    await openTheCourseProgramDropdown(screen)
 
     const general = screen.queryAllByRole('option', { name: /GENERAL/i})
 
@@ -379,11 +355,7 @@ describe('the programs', () => {
       />,
     )
 
-    const PROGRAM = await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_PROGRAM')
-
-    fireEvent.click(PROGRAM)
-
-    await screen.findByRole('listbox')
+    await openTheCourseProgramDropdown(screen)
 
     const general = await screen.findByRole('option', { name: /GENERAL/i})
 
@@ -403,7 +375,7 @@ describe('the programs', () => {
   })
 })
 
-describe('restricted to content ids', () => {
+describe('when the select is restricted to specific content ids', () => {
   test('the type dropdown does not include types from the restrictedToContentIds', async () => {
     server.use(mockQuery)
 
@@ -424,18 +396,14 @@ describe('restricted to content ids', () => {
       />,
     )
 
-    const TYPE = await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_TYPE')
-
-    fireEvent.click(TYPE)
-
-    await screen.findByRole('listbox')
+    await openTheCourseTypeDropdown(screen)
 
     const chinese = screen.queryByRole('option', { name: /CHINESE/i })
 
     expect(chinese).not.toBeInTheDocument()
   })
 
-  test('the program dropdown does not include types from the restrictedToContentIds', async () => {
+  test('the program dropdown does not include programs from the restrictedToContentIds', async () => {
     server.use(mockQuery)
 
     render(
@@ -455,11 +423,7 @@ describe('restricted to content ids', () => {
       />,
     )
 
-    const PROGRAM = await screen.findByText('BROWSE.SCHOOLS.ENTER_COURSE_PROGRAM')
-
-    fireEvent.click(PROGRAM)
-
-    await screen.findByRole('listbox')
+    await openTheCourseProgramDropdown(screen)
 
     const general = screen.queryByRole('option', { name: /GENERAL/i })
     const business = screen.queryByRole('option', { name: /BUSINESS/i })
