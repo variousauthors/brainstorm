@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 import { isDefined } from '@atoms/helpers'
 import { useQuery } from '@atoms/hooks'
-import { ESource } from 'index'
+import { ESource } from '@atoms/_entry'
 
 const QUERY = gql`
   query get {

@@ -155,7 +155,7 @@ export function MultiSelectCourseCategoryByTaxonomy (props: IMultiSelectCourseCa
 
   return (
     <>
-      {layeredMenus}
+      {isEmpty(courseCategories) ? <div role='progressbar'>Loading...</div> : layeredMenus}
     </>
   )
 }

@@ -1,15 +1,22 @@
+// __tests__/fetch.test.js
 import React from 'react'
 import {rest} from 'msw'
-import { render, waitFor, screen, server, fireEvent } from '../helpers/test-utils'
+import {setupServer} from 'msw/node'
+import {render, fireEvent, waitFor, screen} from '@testing-library/react'
+import '@testing-library/jest-dom'
 import { Fetch } from './Fetch'
 
-test('loads and displays greeting', async () => {
-  server.use(
-    rest.get('/greeting', (_req, res, ctx) => {
-      return res(ctx.json({greeting: 'hello there'}))
-    }),
-  )
+const server = setupServer(
+  rest.get('/greeting', (req, res, ctx) => {
+    return res(ctx.json({greeting: 'hello there'}))
+  }),
+)
 
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
+
+test('loads and displays greeting', async () => {
   render(<Fetch url="/greeting" />)
 
   fireEvent.click(screen.getByText('Load Greeting'))
@@ -22,7 +29,7 @@ test('loads and displays greeting', async () => {
 
 test('handles server error', async () => {
   server.use(
-    rest.get('/greeting', (_req, res, ctx) => {
+    rest.get('/greeting', (req, res, ctx) => {
       return res(ctx.status(500))
     }),
   )

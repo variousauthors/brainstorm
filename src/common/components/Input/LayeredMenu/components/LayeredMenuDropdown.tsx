@@ -6,16 +6,17 @@ import { Nothing, Words } from '@atoms/components'
 import { ILayeredMenuDropdownMenu, ILayeredMenuDropdownMenuItem } from '../metadata'
 import { findParentItem } from './LayeredMenuDropdownHelper'
 import { DropdownContainer, MenuCategoryItem, MenuBranchItem, MenuLeafItem } from './styled'
+import { IReactComponentProps } from '@atoms/metadata'
 
 const RootLabel = '__root'
 const RootValue = -1
 
-interface ILayeredMenuDropdown {
+interface ILayeredMenuDropdownProps extends IReactComponentProps {
   menu: ILayeredMenuDropdownMenu,
   onSelect: (item: ILayeredMenuDropdownMenuItem) => void
 }
 
-export const LayeredMenuDropdown: React.FunctionComponent<ILayeredMenuDropdown> = function LayeredMenuDropdown (props) {
+export const LayeredMenuDropdown: React.FunctionComponent<ILayeredMenuDropdownProps> = function LayeredMenuDropdown (props) {
   // pseudo menu item for root
   const rootMenuItem: ILayeredMenuDropdownMenuItem = {
     label: RootLabel,
@@ -37,10 +38,10 @@ export const LayeredMenuDropdown: React.FunctionComponent<ILayeredMenuDropdown> 
   }
 
   return (
-    <DropdownContainer>
+    <DropdownContainer role={props.role}>
       {
         isNotRoot(currentMenuItem) ? (
-          <MenuCategoryItem key={currentMenuItem.value} onClick={goToParentMenu}>
+          <MenuCategoryItem key={currentMenuItem.value} role='option' onClick={goToParentMenu}>
             <Words>{currentMenuItem.label}</Words>
             <span className='hover-text'><Words>GLOBAL.GO_BACK</Words></span>
           </MenuCategoryItem>
@@ -50,14 +51,14 @@ export const LayeredMenuDropdown: React.FunctionComponent<ILayeredMenuDropdown> 
         currentMenuItem.submenu.map((menuItem) => {
           if (isBranch(menuItem)) {
             return (
-              <MenuBranchItem key={menuItem.value} onClick={() => setCurrentMenuItem(menuItem)}>
+              <MenuBranchItem key={menuItem.value} role='option' onClick={() => setCurrentMenuItem(menuItem)}>
                 <Words>{menuItem.label}</Words>
                 &gt;
               </MenuBranchItem>
             )
           } else {
             return (
-              <MenuLeafItem key={menuItem.value} onClick={() => props.onSelect(menuItem)}>
+              <MenuLeafItem key={menuItem.value} role='option' onClick={() => props.onSelect(menuItem)}>
                 <Words>{menuItem.label}</Words>
               </MenuLeafItem>
             )

@@ -4,7 +4,8 @@ import fetch from 'cross-fetch'
 import { render } from '@testing-library/react'
 import { setupServer } from 'msw/node'
 import { graphql } from 'msw'
-import { ApolloProvider, _dangerouslyBuildApolloClient } from '@atoms/_entry'
+import { ApolloProvider } from '@atoms/_entry/ApolloProvider'
+import { _dangerouslyBuildApolloClient } from '@atoms/_entry/buildApolloClient'
 
 const AllTheProviders = ({ children }: PropsWithChildren<unknown>) => {
   return (

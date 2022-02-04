@@ -2,10 +2,11 @@ import { findParentItem } from '../LayeredMenuDropdownHelper'
 
 interface ITestItem {
   value: string
+  label: string
   submenu?: ITestItem[]
 }
 
-const testIt = (target: ITestItem, tree: ITestItem, expected: ITestItem | null) => {
+const testIt = (target: ITestItem, tree: ITestItem, expected: ITestItem | undefined) => {
   const actual = findParentItem<ITestItem>(target, tree)
 
   expect(actual).toBe(expected)
@@ -16,26 +17,27 @@ describe('findParentItem', () => {
     const tree = {
       label: '__root',
       value: '__root',
-      submenu: []
+      submenu: [],
     }
-    const actual = findParentItem(tree, tree)
+    findParentItem(tree, tree)
 
-    testIt(tree, tree, null)
+    testIt(tree, tree, undefined)
   })
 
   it('returns root when at first level', () => {
     const item = {
       label: 'l1a',
       value: 'l1a',
-      submenu: []
+      submenu: [],
     }
 
     const tree = {
       label: '__root',
       value: '__root',
-      submenu: [item]
+      submenu: [item],
     }
-    const actual = findParentItem(item, tree)
+
+    findParentItem(item, tree)
 
     testIt(item, tree, tree)
   })
@@ -44,40 +46,41 @@ describe('findParentItem', () => {
     const item = {
       label: 'l1a',
       value: 'l1a',
-      submenu: []
+      submenu: [],
     }
 
     const anotherItem = {
       label: 'l1b',
-      value: 'l1b'
+      value: 'l1b',
     }
 
-    const root = {
+    const root: ITestItem = {
       label: '__root',
       value: '__root',
-      submenu: [anotherItem]
+      submenu: [anotherItem],
     }
-    const actual = findParentItem(item, root)
 
-    testIt(item, root, null)
+    findParentItem(item, root)
+
+    testIt(item, root, undefined)
   })
 
   it('returns parent when at 2nd level', () => {
     const secondLevelItem = {
       label: 'l2a',
       value: 'l2a',
-      submenu: []
+      submenu: [],
     }
     const item = {
       label: 'l1a',
       value: 'l1a',
-      submenu: [secondLevelItem]
+      submenu: [secondLevelItem],
     }
 
     const root = {
       label: '__root',
       value: '__root',
-      submenu: [item]
+      submenu: [item],
     }
 
     testIt(secondLevelItem, root, item)
@@ -86,24 +89,24 @@ describe('findParentItem', () => {
   it('returns parent when at 2nd level, as second item', () => {
     const secondLevelItem = {
       label: 'l2a',
-      value: 'l2a'
+      value: 'l2a',
     }
 
     const anotherSecondLevelItem = {
       label: 'l2b',
-      value: 'l2b'
+      value: 'l2b',
     }
 
     const item = {
       label: 'l1a',
       value: 'l1a',
-      submenu: [secondLevelItem, anotherSecondLevelItem]
+      submenu: [secondLevelItem, anotherSecondLevelItem],
     }
 
     const root = {
       label: '__root',
       value: '__root',
-      submenu: [item]
+      submenu: [item],
     }
 
     testIt(anotherSecondLevelItem, root, item)
@@ -112,26 +115,26 @@ describe('findParentItem', () => {
   it('returns null when not found anywhere', () => {
     const secondLevelItem = {
       label: 'l2a',
-      value: 'l2a'
+      value: 'l2a',
     }
 
     const anotherSecondLevelItem = {
       label: 'l2b',
-      value: 'l2b'
+      value: 'l2b',
     }
 
     const item = {
       label: 'l1a',
       value: 'l1a',
-      submenu: [secondLevelItem]
+      submenu: [secondLevelItem],
     }
 
     const root = {
       label: '__root',
       value: '__root',
-      submenu: [item]
+      submenu: [item],
     }
 
-    testIt(anotherSecondLevelItem, root, null)
+    testIt(anotherSecondLevelItem, root, undefined)
   })
 })

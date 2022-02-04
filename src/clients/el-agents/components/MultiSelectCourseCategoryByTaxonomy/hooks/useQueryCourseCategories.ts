@@ -1,8 +1,9 @@
+import { useMemo } from 'react'
 import { isDefined, isNil, safelyCallEffect } from '@atoms/helpers'
 import { useQuery } from '@atoms/hooks'
+import { ESource } from '@atoms/_entry'
 import gql from 'graphql-tag'
-import { ESource } from 'index'
-import { useMemo } from 'react'
+import { makeMock } from '@common/helpers'
 
 export interface ICourseCategory {
   id: number
@@ -16,6 +17,7 @@ export interface ICourseCategory {
 }
 
 interface ICourseCategoryContentResponse {
+  offeringCourseCategoryContentId: number
   codeName: string
 }
 
@@ -111,3 +113,13 @@ function toCourseCategory(courseCategory: ICourseCategoryResponse): ICourseCateg
     depth: courseCategory.depth,
   }
 }
+
+export const mock = makeMock<IResponse, {
+  offeringCourseCategoryTaxonomyId: number,
+  parentOfferingCourseCategoryIds: number[],
+}>(
+  'offeringCourseCategoriesByTaxonomy',
+  {
+    offeringCourseCategories: [],
+  },
+)

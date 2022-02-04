@@ -1,16 +1,24 @@
 import React from 'react'
 import { graphql } from 'msw'
-import { render, waitFor, screen, server } from '../../helpers/test-utils'
 import { Countries } from './Countries'
-import { ESource } from '../../helpers'
+import { render, waitFor, screen, server } from 'test-utils'
+import { ESource } from '@atoms/_entry'
+import { waitForElementToBeRemoved } from '@testing-library/react'
 
 describe('using v2 as the source', () => {
-  test('loads and displays greeting', async () => {
+  test.only('loads and displays greeting', async () => {
     render(<Countries source={ESource.API_SERVER_V2} />)
 
-    await waitFor(() => screen.getByRole('heading'))
+    const progressbar = await screen.findByRole('progressbar')
 
-    expect(screen.getByRole('heading')).toHaveTextContent('hello there')
+    expect(progressbar).toBeInTheDocument()
+
+    await waitForElementToBeRemoved(() => screen.getByRole('progressbar'))
+
+    const greeting = screen.getByText(/hello/i)
+
+    expect(progressbar).not.toBeInTheDocument()
+    expect(greeting).toBeInTheDocument()
   })
 
   test('handles server error', async () => {
@@ -25,9 +33,9 @@ describe('using v2 as the source', () => {
 
     render(<Countries source={ESource.API_SERVER_V2} />)
 
-    await waitFor(() => screen.getByRole('alert'))
+    const alert = await waitFor(() => screen.getByRole('alert'))
 
-    expect(screen.getByRole('alert')).toHaveTextContent('Error :(')
+    expect(alert).toHaveTextContent('Error :(')
   })
 })
 
@@ -35,9 +43,9 @@ describe('using agency api as the source', () => {
   test('loads and displays greeting', async () => {
     render(<Countries source={ESource.AGENCY_API} />)
 
-    await waitFor(() => screen.getByRole('heading'))
+    const heading = await waitFor(() => screen.getByRole('heading'))
 
-    expect(screen.getByRole('heading')).toHaveTextContent('hello there')
+    expect(heading).toHaveTextContent('hello there')
   })
 
   test('handles server error', async () => {
@@ -52,8 +60,8 @@ describe('using agency api as the source', () => {
 
     render(<Countries source={ESource.AGENCY_API} />)
 
-    await waitFor(() => screen.getByRole('alert'))
+    const alert = await waitFor(() => screen.getByRole('alert'))
 
-    expect(screen.getByRole('alert')).toHaveTextContent('Error :(')
+    expect(alert).toHaveTextContent('Error :(')
   })
 })

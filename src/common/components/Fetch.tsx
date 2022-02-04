@@ -1,24 +1,25 @@
-import React, { useReducer, useState } from 'react'
+import React, {useState, useReducer} from 'react'
 import axios from 'axios'
-import { isDefined } from '@atoms/helpers'
 
 interface IState {
-  error: string
+  error?: unknown,
+  greeting: string,
+}
+
+interface IAction {
+  type: 'SUCCESS' | 'ERROR',
   greeting: string
+  error?: unknown
 }
 
 const initialState: IState = {
-  error: '',
   greeting: '',
 }
-
-type IAction = { type: 'SUCCESS' | 'ERROR', error: string, greeting: string }
 
 function greetingReducer(state: IState, action: IAction) {
   switch (action.type) {
     case 'SUCCESS': {
       return {
-        error: '',
         greeting: action.greeting,
       }
     }
@@ -43,13 +44,14 @@ export function Fetch({ url }: { url: string }) {
 
   const fetchGreeting = async (url: string) =>
     axios
-      .get<{ greeting: string }>(url)
-      .then((response) => {
-        const greeting = response.data.greeting
-        dispatch({ type: 'SUCCESS', greeting, error: '' })
+      .get(url)
+      .then((response: { data: { greeting: string }}) => {
+        const {data} = response
+        const {greeting} = data
+        dispatch({type: 'SUCCESS', greeting})
         setButtonClicked(true)
       })
-      .catch((error: string) => {
+      .catch((error: unknown) => {
         dispatch({ type: 'ERROR', error, greeting: '' })
       })
 
@@ -60,8 +62,8 @@ export function Fetch({ url }: { url: string }) {
       <button onClick={() => fetchGreeting(url)} disabled={buttonClicked}>
         {buttonText}
       </button>
-      {isDefined(greeting) && <h1>{greeting}</h1>}
-      {isDefined(error) && <p role="alert">Oops, failed to fetch!</p>}
+      {greeting !== '' && <h1>{greeting}</h1>}
+      {error !== undefined && <p role="alert">Oops, failed to fetch!</p>}
     </div>
   )
 }

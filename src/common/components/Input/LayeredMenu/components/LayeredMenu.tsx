@@ -34,6 +34,7 @@ export function LayeredMenu (props: ILayeredMenuProps) {
         {
           isDropdownVisible ? (
             <LayeredMenuDropdown
+              role='listbox'
               menu={props.menu}
               onSelect={(change) => {
                 props.onSelect(change)

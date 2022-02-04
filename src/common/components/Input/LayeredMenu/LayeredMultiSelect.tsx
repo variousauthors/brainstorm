@@ -1,14 +1,14 @@
 import * as React from 'react'
 
 import { immutableRemove } from '@common/helpers'
-import { ISelectOption } from '@atoms/metadata'
+import { IReactComponentProps, ISelectOption } from '@atoms/metadata'
 
 import { ILayeredMenuDropdownMenu } from './metadata'
 import { LayeredMenu } from './components'
 import { MultiSelectBar } from '../MultiSelectBar'
 import { isDefined } from '@atoms/helpers'
 
-interface ILayeredMultiSelectProps {
+interface ILayeredMultiSelectProps extends IReactComponentProps {
   menu: ILayeredMenuDropdownMenu
   selectedItems: ISelectOption[]
   onChange: (nextItems: ISelectOption[]) => void

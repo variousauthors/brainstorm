@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { isEmpty } from '@atoms/helpers'
-import { ISelectOption } from '@atoms/metadata'
+import { IReactComponentProps, ISelectOption } from '@atoms/metadata'
 import { Nothing, Words } from '@atoms/components'
 import { MultiSelectBarPill } from './components'
 import { InputLikeBar, InputLikeBarItemsContainer, Placeholder, InputLikeBarArrow } from './styled'
 
-interface ILayeredMenuBar {
+interface ILayeredMenuBar extends IReactComponentProps {
   items: ISelectOption[]
   onClick: () => void
   onRemoveItem: (menuItem: ISelectOption) => void
@@ -14,7 +14,7 @@ interface ILayeredMenuBar {
 
 export const MultiSelectBar: React.FunctionComponent<ILayeredMenuBar> = function LayeredMenuBar (props) {
   return (
-    <InputLikeBar onClick={props.onClick}>
+    <InputLikeBar role='button' onClick={props.onClick}>
       <InputLikeBarItemsContainer>
         {
           isEmpty(props.items) ? (

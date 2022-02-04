@@ -40,7 +40,7 @@ export function Countries ({ source }: ICountriesProps): JSX.Element {
     },
   })
 
-  if (loading) return <p>Loading...</p>
+  if (loading) return <p role='progressbar'>Loading...</p>
   if (isDefined(error)) return <p role='alert'>Error :(</p>
 
   assert(isDefined(data), 'Assertion failed: fetched data was undefined')
