@@ -14,18 +14,6 @@ export function isDescendentOfSome  <T extends INode>(target: T, categories: T[]
   return categories.some((ancestor) => isDescendentOf(target, ancestor))
 }
 
-export function getPath  <T extends INode>(target: T, categories: T[]) {
-  return getAncestors(target, categories).concat(target)
-}
-
-export function getAncestors  <T extends INode>(target: T, categories: T[]) {
-  return categories.filter((category) => category.left < target.left && target.right < category.right)
-}
-
-export function isRootNode <T extends INode>(target: T) {
-  return target.depth === 0
-}
-
 /** @TODO this check _should_ be target.left === target.right - 1 but out db representation of the nested set model
  * currently does not support this assumption */
 export function isLeaf <T extends INode>(target: T, categories: T[]) {

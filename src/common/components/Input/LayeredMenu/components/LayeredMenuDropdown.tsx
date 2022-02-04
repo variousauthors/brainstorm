@@ -41,7 +41,7 @@ export const LayeredMenuDropdown: React.FunctionComponent<ILayeredMenuDropdownPr
     <DropdownContainer role={props.role}>
       {
         isNotRoot(currentMenuItem) ? (
-          <MenuCategoryItem key={currentMenuItem.value} role='option' onClick={goToParentMenu}>
+          <MenuCategoryItem aria-label={currentMenuItem.label} key={currentMenuItem.value} role='option' onClick={goToParentMenu}>
             <Words>{currentMenuItem.label}</Words>
             <span className='hover-text'><Words>GLOBAL.GO_BACK</Words></span>
           </MenuCategoryItem>
@@ -51,14 +51,14 @@ export const LayeredMenuDropdown: React.FunctionComponent<ILayeredMenuDropdownPr
         currentMenuItem.submenu.map((menuItem) => {
           if (isBranch(menuItem)) {
             return (
-              <MenuBranchItem key={menuItem.value} role='option' onClick={() => setCurrentMenuItem(menuItem)}>
+              <MenuBranchItem aria-label={menuItem.label} key={menuItem.value} role='option' onClick={() => setCurrentMenuItem(menuItem)}>
                 <Words>{menuItem.label}</Words>
                 &gt;
               </MenuBranchItem>
             )
           } else {
             return (
-              <MenuLeafItem key={menuItem.value} role='option' onClick={() => props.onSelect(menuItem)}>
+              <MenuLeafItem aria-label={menuItem.label} key={menuItem.value} role='option' onClick={() => props.onSelect(menuItem)}>
                 <Words>{menuItem.label}</Words>
               </MenuLeafItem>
             )
