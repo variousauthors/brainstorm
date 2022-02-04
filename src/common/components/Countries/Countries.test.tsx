@@ -1,12 +1,12 @@
 import React from 'react'
 import { graphql } from 'msw'
 import { Countries } from './Countries'
-import { render, waitFor, screen, server } from 'test-utils'
+import {render, waitFor, screen, server} from '@src/test-utils'
 import { ESource } from '@atoms/_entry'
 import { waitForElementToBeRemoved } from '@testing-library/react'
 
 describe('using v2 as the source', () => {
-  test.only('loads and displays greeting', async () => {
+  test('loads and displays greeting', async () => {
     render(<Countries source={ESource.API_SERVER_V2} />)
 
     const progressbar = await screen.findByRole('progressbar')

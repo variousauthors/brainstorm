@@ -89,7 +89,8 @@
   "moduleNameMapper": {
     "@brainstorm": "<rootDir>/dist",
     "@atoms/(.*)": "<rootDir>/src/atoms/$1",
-    "@common/(.*)": "<rootDir>/src/common/$1"
+    "@common/(.*)": "<rootDir>/src/common/$1",
+    "@src/(.*)": "<rootDir>/src/$1"
   },
   "jest": {
     "testEnvironment": "jsdom",
@@ -101,7 +102,7 @@
       "@brainstorm": "<rootDir>/dist",
       "@atoms/(.*)": "<rootDir>/src/atoms/$1",
       "@common/(.*)": "<rootDir>/src/common/$1",
-      "test-utils": "<rootDir>/src/test-utils"
+      "@src/(.*)": "<rootDir>/src/$1"
     }
   }
 }

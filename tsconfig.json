@@ -32,6 +32,7 @@
     "paths": {
       "@common/*": ["common/*"],
       "@atoms/*": ["atoms/*"],
+      "@src/*": ["./*"],
       "@brainstorm": ["../build/dist/index.d.ts"]
     },
     "typeRoots": [

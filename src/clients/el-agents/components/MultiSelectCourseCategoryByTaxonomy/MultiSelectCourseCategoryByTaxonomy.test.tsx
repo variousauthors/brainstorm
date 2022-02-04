@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, screen, waitForElementToBeRemoved, waitFor, server } from 'test-utils'
+import { fireEvent, render, screen, waitForElementToBeRemoved, waitFor, server } from '@src/test-utils'
 import { mock } from './hooks/useQueryCourseCategories'
 import { IMultiSelectTaxonomyData, MultiSelectCourseCategoryByTaxonomy } from './MultiSelectCourseCategoryByTaxonomy'
 
@@ -58,7 +58,7 @@ const mockQuery = mock({
   ],
 })
 
-test.only('Clicking into the course type select opens the dropdown', async () => {
+test('Clicking into the course type select opens the dropdown', async () => {
   server.use(mockQuery)
 
   render(
@@ -135,12 +135,10 @@ test('clicking a course type fires the call back', async () => {
 
   expect(onChange).toBeCalledWith([
     {
-      label: 'type',
       placeholder: 'BROWSE.SCHOOLS.ENTER_COURSE_TYPE',
       selectedContentIds: [61],
       taxonomyId: 1,
     }, {
-      label: 'program',
       placeholder: 'BROWSE.SCHOOLS.ENTER_COURSE_PROGRAM',
       selectedContentIds: [],
       taxonomyId: 2,
