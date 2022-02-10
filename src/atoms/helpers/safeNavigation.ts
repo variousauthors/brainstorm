@@ -15,6 +15,7 @@ export function isNil<T>(obj: T | undefined | null): obj is undefined | null {
 }
 
 // something is empty if it has a length property = 0 OR if lodash says so
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function isEmpty<T extends { length: number }>(value: T) {
   return isDefined(value) && (value.length === 0 || _.isEmpty(value))
 }
