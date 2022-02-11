@@ -2,7 +2,7 @@
   "comment": "Base tsconfig, also used by editor hence we do not exclude tests, stories...",
   "compilerOptions": {
     "outDir": "./dist/",
-    "target": "es5",
+    "target": "es6",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUncheckedIndexedAccess": true,
