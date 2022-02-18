@@ -1,9 +1,10 @@
-import React, { Ref } from 'react';
-import { HTMLFieldProps, connectField, filterDOMProps } from 'uniforms';
+import { isDefined } from '@atoms/helpers'
+import React, { Ref } from 'react'
+import { HTMLFieldProps, connectField, filterDOMProps } from 'uniforms'
 
 /* istanbul ignore next */
-const DateConstructor = (typeof global === 'object' ? global : window).Date;
-const dateFormat = (value?: Date) => value?.toISOString().slice(0, -8);
+const DateConstructor = (typeof global === 'object' ? global : window).Date
+const dateFormat = (value?: Date) => value?.toISOString().slice(0, -8)
 
 export type DateFieldProps = HTMLFieldProps<
   Date,
@@ -26,31 +27,34 @@ function Date({
   ...props
 }: DateFieldProps) {
   return (
-    <div {...filterDOMProps(props)}>
-      {label && <label htmlFor={id}>{label}</label>}
+    <div className='form-group valid col-sm-4 m-b-0 field-datePicker' {...filterDOMProps(props)}>
+      {isDefined(label) && <label htmlFor={id}>{label}</label>}
 
-      <input
-        disabled={disabled}
-        id={id}
-        max={dateFormat(max)}
-        min={dateFormat(min)}
-        name={name}
-        onChange={event => {
-          const date = new DateConstructor(event.target.valueAsNumber);
-          if (date.getFullYear() < 10000) {
-            onChange(date);
-          } else if (isNaN(event.target.valueAsNumber)) {
-            onChange(undefined);
-          }
-        }}
-        placeholder={placeholder}
-        readOnly={readOnly}
-        ref={inputRef}
-        type="datetime-local"
-        value={dateFormat(value) ?? ''}
-      />
+      <div className='field-wrap'>
+        <input
+          className='form-control'
+          disabled={disabled}
+          id={id}
+          max={dateFormat(max)}
+          min={dateFormat(min)}
+          name={name}
+          onChange={(event) => {
+            const date = new DateConstructor(event.target.valueAsNumber)
+            if (date.getFullYear() < 10000) {
+              onChange(date)
+            } else if (isNaN(event.target.valueAsNumber)) {
+              onChange(undefined)
+            }
+          }}
+          placeholder={placeholder}
+          readOnly={readOnly}
+          ref={inputRef}
+          type="datetime-local"
+          value={dateFormat(value) ?? ''}
+        />
+      </div>
     </div>
-  );
+  )
 }
 
-export default connectField<DateFieldProps>(Date, { kind: 'leaf' });
+export default connectField<DateFieldProps>(Date, { kind: 'leaf' })

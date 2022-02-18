@@ -16,13 +16,15 @@ export default function SubmitField({
   const { error, state } = useForm();
 
   return (
-    <input
-      disabled={disabled === undefined ? !!(error || state.disabled) : disabled}
-      readOnly={readOnly}
-      ref={inputRef}
-      type="submit"
-      {...(value ? { value } : {})}
-      {...filterDOMProps(props)}
-    />
+    <div className='form-buttons-w text-right'>
+      <input
+        disabled={disabled === undefined ? !!(error || state.disabled) : disabled}
+        readOnly={readOnly}
+        ref={inputRef}
+        type="submit"
+        {...(value ? { value } : {})}
+        {...filterDOMProps(props)}
+      />
+    </div>
   );
 }

@@ -23,21 +23,26 @@ function Text({
 }: TextFieldProps) {
   console.log('TextField')
   return (
-    <div {...filterDOMProps(props)}>
+    <div className={'form-group valid required col-sm-6 field-input'} {...filterDOMProps(props)}>
       {label && <label htmlFor={id}>{label}</label>}
 
-      <input
-        autoComplete={autoComplete}
-        disabled={disabled}
-        id={id}
-        name={name}
-        onChange={event => onChange(event.target.value)}
-        placeholder={placeholder}
-        readOnly={readOnly}
-        ref={inputRef}
-        type={type}
-        value={value ?? ''}
-      />
+      <div className='field-wrap'>
+        <div className='wrapper'>
+          <input
+            className='form-control'
+            autoComplete={autoComplete}
+            disabled={disabled}
+            id={id}
+            name={name}
+            onChange={event => onChange(event.target.value)}
+            placeholder={placeholder}
+            readOnly={readOnly}
+            ref={inputRef}
+            type={type}
+            value={value ?? ''}
+          />
+        </div>
+      </div>
     </div>
   );
 }
