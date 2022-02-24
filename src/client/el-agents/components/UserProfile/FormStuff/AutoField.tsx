@@ -12,7 +12,6 @@ import SelectField from './SelectField'
 import TextField from './TextField'
 
 const AutoField = createAutoField((props) => {
-  console.log('wat', props)
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (props.allowedValues) {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

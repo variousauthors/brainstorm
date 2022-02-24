@@ -73,7 +73,7 @@ export function ProfileForm (props: IProfileFormProps) {
             </div>
           </div>
         </div>
-        <Form schema={bridge} onSubmit={console.log} />
+        <Form schema={bridge} onSubmit={() => undefined} />
         <div className="form-buttons-w text-right">
           <button onClick={props.onSubmit} type="button" className="btn btn-primary">
             <Words>agents:GLOBAL.SAVE</Words>

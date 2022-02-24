@@ -21,7 +21,6 @@ function Text({
   value,
   ...props
 }: TextFieldProps) {
-  console.log('TextField')
   return (
     <div className={'form-group valid required col-sm-6 field-input'} {...filterDOMProps(props)}>
       {label && <label htmlFor={id}>{label}</label>}
