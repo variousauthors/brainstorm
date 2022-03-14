@@ -20,13 +20,14 @@ function CustomAutoFields(props: IReactComponentProps) {
 
 interface IFormProps extends IReactComponentProps {
   schema: Bridge
+  model: DeepPartial<unknown>
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit?: (model: DeepPartial<unknown>) => void | Promise<any>
 }
 
 export function Form (props: IFormProps) {
   return (
-    <AutoForm schema={props.schema} onSubmit={props.onSubmit}>
+    <AutoForm schema={props.schema} onSubmit={props.onSubmit} model={props.model}>
       <AutoFields element={CustomAutoFields} />
       <ErrorsField />
       <SubmitField />

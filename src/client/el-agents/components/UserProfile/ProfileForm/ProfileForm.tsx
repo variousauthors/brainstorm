@@ -52,13 +52,22 @@ const schemaValidator = createValidator(schema)
 export const bridge = new JSONSchemaBridge(schema, schemaValidator)
 
 
+interface IUserProfile {
+  firstName: string
+  lastName: string
+  birthday: Date
+  phoneNumber: string
+  gender: string
+  position: string
+}
+
 export interface IProfileFormProps extends IReactComponentProps {
   userProfile: { firstName: string }
-  onChange: (userProfile: { firstName: string }) => void
-  onSubmit: () => void
+  onSubmit: (userProfile: IUserProfile) => void
 }
 
 export function ProfileForm (props: IProfileFormProps) {
+  console.log('props', props)
   return (
     <div className="element-wrapper">
       <div className="element-box">
@@ -73,12 +82,7 @@ export function ProfileForm (props: IProfileFormProps) {
             </div>
           </div>
         </div>
-        <Form schema={bridge} onSubmit={() => undefined} />
-        <div className="form-buttons-w text-right">
-          <button onClick={props.onSubmit} type="button" className="btn btn-primary">
-            <Words>agents:GLOBAL.SAVE</Words>
-          </button>
-        </div>
+        <Form model={props.userProfile} schema={bridge} onSubmit={(bob) => alert(JSON.stringify(bob))} />
       </div>
     </div>
   )
